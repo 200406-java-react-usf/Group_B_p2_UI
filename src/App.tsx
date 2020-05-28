@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import { AppBar, Toolbar, Typography } from '@material-ui/core';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { store } from './Store';
+import NavbarComponent from './components/navbar-component/NavbarContainer';
 
 function App() {
   return (
@@ -14,12 +15,12 @@ function App() {
           <AppBar color="primary" position="static">
             <Toolbar>
               <Typography variant="h5" color="inherit">
+                <NavbarComponent />
               </Typography>
             </Toolbar>
           </AppBar>
           <Switch>
-            {/*Routes to different components goes here.
-              Be sure to import from container file */}
+           
           </Switch>
         </Router>
       </Provider>
