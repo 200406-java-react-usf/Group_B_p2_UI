@@ -41,7 +41,7 @@ export interface INewItemState {
 }
 
 export interface INavbarState {
-
+    errorMessage: string;
 }
 
 export interface IInventoryState {
