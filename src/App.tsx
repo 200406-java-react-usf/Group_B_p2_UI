@@ -6,6 +6,8 @@ import { AppBar, Toolbar, Typography } from '@material-ui/core';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { store } from './Store';
 
+import LoginComponent from './components/login-component/LoginContainer';
+
 function App() {
   return (
     <div className="App">
@@ -20,6 +22,7 @@ function App() {
           <Switch>
             {/*Routes to different components goes here.
               Be sure to import from container file */}
+              <Route path='/login' render={() => <LoginComponent />} />
           </Switch>
         </Router>
       </Provider>
