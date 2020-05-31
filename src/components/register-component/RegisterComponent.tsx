@@ -63,7 +63,7 @@ const RegisterComponent = (props: IRegisterProps) =>{
 		props.authUser ? <Redirect to="/home" /> :
         <div className={classes.registerContainer}>
             <form className={classes.registerForm}>
-                <Typography align="center" variant="h4">Register for Revaboards!</Typography>
+                <Typography align="center" variant="h4">Register for MemeStore!</Typography>
 
                 <FormControl margin="normal" fullWidth>
                     <InputLabel htmlFor="firstName">First Name</InputLabel>
