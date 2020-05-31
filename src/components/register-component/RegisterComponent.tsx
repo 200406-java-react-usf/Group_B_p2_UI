@@ -1,66 +1,67 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { Typography, FormControl, InputLabel, Input, Button, makeStyles } from '@material-ui/core';
 import { Redirect } from 'react-router';
-import {Alert} from '@material-ui/lab';
-import {NewUser} from '../../dtos/new-user';
+import { Alert } from '@material-ui/lab';
+import { NewUser } from '../../models/NewUser';
 import { User } from '../../models/User';
 
-
-export interface IRegisterProps{
-	authUser: User | undefined;
-	errorMessage: string;
-	registerAction: (NewUser: NewUser) => void;
+export interface IRegisterProps {
+    authUser: User | undefined;
+    errorMessage: string;
+    registerAction: (newUser: NewUser) => void;
 }
 
 const useStyles = makeStyles({
-	registerContainer:{
-		display: "flex", 
-		justifyContent: "center",
-		margin: 20, 
-		marginTop: 40, 
-		padding: 20
-	},
-	registerForm: {
-		width: "50%"
-	}
+    registerContainer: {
+        display: "flex",
+        justifyContent: "center",
+        margin: 20,
+        marginTop: 40,
+        padding: 20
+    },
+    registerForm: {
+        width: "50%"
+    }
 });
 
-const RegisterComponent = (props: IRegisterProps) =>{
-	const classes = useStyles();
+const RegisterComponent = (props: IRegisterProps) => {
 
-	const [firstName, setFirstName] = useState('');
-	const [lastName, setLastName] = useState('');
-	const [email, setEmail] = useState('');
-	const [username, setUsername] = useState('');
-	const [password, setPassword] = useState('');
+    const classes = useStyles();
 
-	let updateFormField = (e:any) =>{
-		switch (e.target.id){
-			case 'firstName': 
-				setFirstName(e.target.value);
-				break;
-			case 'lastName':
-				setLastName(e.target.value);
-				break;
-			case 'email':
-				setEmail(e.target.value);
-				break;
-			case 'username':
-				setUsername(e.target.value);
-				break;
-			case 'password':
-				setPassword(e.target.value);
-				break;
-			default:
-				console.warn(`Improper binding detected on element with id: ${e.currentTarget.id}`);
-		}		
-	}
+    const [first_name, setFirstName] = useState('');
+    const [last_name, setLastName] = useState('');
+    const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
 
-	let signUp = async () => {
-		props.registerAction(new NewUser(firstName, lastName, email, username, password));
-	}
-	return (
-		props.authUser ? <Redirect to="/home" /> :
+    let updateFormField = (e: any) => {
+        switch (e.currentTarget.id) {
+            case 'firstName':
+                setFirstName(e.target.value);
+                break;
+            case 'lastName':
+                setLastName(e.target.value);
+                break;
+            case 'email':
+                setEmail(e.target.value);
+                break;
+            case 'username':
+                setUsername(e.target.value);
+                break;
+            case 'password':
+                setPassword(e.target.value);
+                break;
+            default:
+                console.warn(`Improper binding detected on element with id: ${e.currentTarget.id}`);
+        }
+    }
+
+    let signUp = async () => {
+        props.registerAction(new NewUser(first_name, last_name, email, username, password));
+    }
+
+    return (
+        props.authUser ? <Redirect to="/home" /> :
         <div className={classes.registerContainer}>
             <form className={classes.registerForm}>
                 <Typography align="center" variant="h4">Register for MemeStore!</Typography>
@@ -69,7 +70,7 @@ const RegisterComponent = (props: IRegisterProps) =>{
                     <InputLabel htmlFor="firstName">First Name</InputLabel>
                     <Input 
                         onChange={updateFormField} 
-                        value={firstName} 
+                        value={first_name} 
                         id="firstName" type="text" 
                         placeholder="Enter your first name" />
                 </FormControl>
@@ -78,7 +79,7 @@ const RegisterComponent = (props: IRegisterProps) =>{
                     <InputLabel htmlFor="lastName">Last Name</InputLabel>
                     <Input 
                         onChange={updateFormField} 
-                        value={lastName} 
+                        value={last_name} 
                         id="lastName" type="text" 
                         placeholder="Enter your last name" />
                 </FormControl>
@@ -127,6 +128,7 @@ const RegisterComponent = (props: IRegisterProps) =>{
             </form>
         </div>
     );
+
 }
 
 export default RegisterComponent;

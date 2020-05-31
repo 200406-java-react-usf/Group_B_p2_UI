@@ -1,4 +1,3 @@
-import { User } from "../models/User"
 import { AnyAction } from "redux";
 import { IRegisterState } from ".";
 import { registerActionTypes } from "../actions/register-actions"
@@ -30,4 +29,5 @@ export const registerReducer = (state: IRegisterState = initialState, action: An
             return state;
 
     }
+
 }
