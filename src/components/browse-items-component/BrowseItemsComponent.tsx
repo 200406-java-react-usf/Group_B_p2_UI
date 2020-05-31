@@ -30,7 +30,15 @@ let itemCards: any[] = [];
 useEffect(() => {
     let fetchData = async () => {
 
-    const response = await getInventory();
+    //const response = await getInventory();
+
+    let item1 = new Inventory(1, "item 1", "first item", 1.00, "other", "image");
+    let item2 = new Inventory(1, "item 1", "first item", 1.00, "other", "image");
+    let item3 = new Inventory(1, "item 1", "first item", 1.00, "other", "image");
+    let item4 = new Inventory(1, "item 1", "first item", 1.00, "other", "image");
+    let item5 = new Inventory(1, "item 1", "first item", 1.00, "other", "image");
+
+    const response = [item1, item2, item3, item4, item5]
 
     for (let item of response){
 
@@ -45,7 +53,7 @@ useEffect(() => {
                 />
                 <CardContent>
                 <Typography gutterBottom variant="h5" component="h2">
-                    {item.item-name}
+                    {item.item_name}
                 </Typography>
                 <Typography variant="body2" color="textSecondary" component="p">
                     {item.cost}
