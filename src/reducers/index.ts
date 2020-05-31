@@ -11,6 +11,7 @@ import { browseItemsReducer } from "./browse-items-reducer";
 import { inventoryReducer } from "./inventory-reducer";
 import { cartReducer } from "./cart-reducer";
 import { itemDetailsReducer } from "./item-details-reducer";
+import { loginReducer } from "./login-reducer";
 
 
 
@@ -41,7 +42,8 @@ export interface INewItemState {
 }
 
 export interface INavbarState {
-
+    itemCount: number;
+    errorMessage: string;
 }
 
 export interface IInventoryState {
@@ -56,33 +58,33 @@ export interface IInvoiceState {
 export interface IState {
     login: ILoginState;
     logout: INavbarState;
-    register: IRegisterState;
-    addNewItem: INewItemState;
-    getAllItems: IInventoryState;
-    updateItem: IInventoryState;
-    deleteItem: IInventoryState;
-    addItemToCart: IItemDetailsState;
-    deleteItemFromCart: ICartState;
-    updateQuantity: ICartState;
-    newInvoice: ICartState;
-    getInventory: IBrowseItemsState; 
-    getItemDetails:  IItemDetailsState;
-    setThisItem: IBrowseItemsState;
+    // register: IRegisterState;
+    // addNewItem: INewItemState;
+    // getAllItems: IInventoryState;
+    // updateItem: IInventoryState;
+    // deleteItem: IInventoryState;
+    // addItemToCart: IItemDetailsState;
+    // deleteItemFromCart: ICartState;
+    // updateQuantity: ICartState;
+    // newInvoice: ICartState;
+    // getInventory: IBrowseItemsState; 
+    // getItemDetails:  IItemDetailsState;
+    // setThisItem: IBrowseItemsState;
 }
 
 export const state = combineReducers<IState>({ 
-    register: registerReducer,
+    //register: registerReducer,
     logout: navbarReducer,
-    addNewItem: newItemReducer,
-    getAllItems: inventoryReducer,
-    updateItem: inventoryReducer,
-    deleteItem: inventoryReducer,
-    addItemToCart: itemDetailsReducer,
-    deleteItemFromCart: cartReducer,
-    updateQuantity: cartReducer,
-    newInvoice: cartReducer,
-    getInventory: browseItemsReducer,
-    getItemDetails: itemDetailsReducer,
-    setThisItem: browseItemsReducer,
+    // addNewItem: newItemReducer,
+    // getAllItems: inventoryReducer,
+    // updateItem: inventoryReducer,
+    // deleteItem: inventoryReducer,
+    // addItemToCart: itemDetailsReducer,
+    // deleteItemFromCart: cartReducer,
+    // updateQuantity: cartReducer,
+    // newInvoice: cartReducer,
+    // getInventory: browseItemsReducer,
+    // getItemDetails: itemDetailsReducer,
+    // setThisItem: browseItemsReducer,
     login: loginReducer
 });
