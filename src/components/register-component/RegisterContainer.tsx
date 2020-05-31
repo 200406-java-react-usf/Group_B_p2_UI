@@ -9,3 +9,9 @@ const mapStateToProps = (state: IState) =>{
 		errorMessage: state.register.errorMessage
 	}
 }
+
+const mapDispatchToProps = {
+    registerAction
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(RegisterComponent);
