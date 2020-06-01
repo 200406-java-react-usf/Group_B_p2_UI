@@ -8,12 +8,12 @@ import { store } from './Store';
 
 // import HomeComponent from './components/home-component/HomeContainer';
 import LoginComponent from './components/login-component/LoginContainer';
-// import RegisterComponent from './components/register-component/RegisterContainer';
+import RegisterComponent from './components/register-component/RegisterContainer';
 //import ItemDetailsComponent from './components/item-details-component/ItemDetailsContainer';
-import BrowseItemsComponent from './components/browse-items-component/BrowseItemsContainer';
+import BrowseItemsComponent from './components/browse-items-component/BrowseItemsComponent';
 // import CartComponent from './components/cart-component/CartContainer';
 // import AdminDashComponent from './components/admin-dash-component/AdminDashContainer';
-// import NavbarComponent from './components/navbar-component/NavbarContainer';
+import NavbarComponent from './components/navbar-component/NavbarContainer';
 
 function App() {
   return (
@@ -23,17 +23,16 @@ function App() {
           <AppBar color="primary" position="static">
             <Toolbar>
               <Typography variant="h5" color="inherit">
-                {/*<NavbarComponent />*/}
+                <NavbarComponent />
               </Typography>
             </Toolbar>
           </AppBar>
           <Switch>
             <Route path='/login' render={() => <LoginComponent />} />
-            <Route path='/browse-items' render={() => <BrowseItemsComponent />} />
-            {/* <Route path='/home' render={() => <HomeComponent />} />
-            <Route path='/register' render={() => <RegisterComponent />} />
-            <Route path={`/item-details-${}`} render={() => <ItemDetailsComponent />} />
             <Route path='/browse' render={() => <BrowseItemsComponent />} />
+            <Route path='/register' render={() => <RegisterComponent />} />
+            {/* <Route path='/home' render={() => <HomeComponent />} />
+            <Route path={`/item-details-${}`} render={() => <ItemDetailsComponent />} />
             <Route path='/cart' render={() => <CartComponent />} />
             <Route path='/admin-dashboard' render={() => <AdminDashComponent />} /> */}
           </Switch>

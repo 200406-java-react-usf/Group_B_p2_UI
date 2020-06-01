@@ -4,3 +4,7 @@
     grid-template-columns: repeat(auto-fit, 100px);
     grid-template-rows: repeat(2, 100px);
 }
+
+.div {
+    margin: 2%;
+}
