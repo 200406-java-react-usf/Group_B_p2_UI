@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import { Typography, FormControl, InputLabel, Input, Button, makeStyles } from '@material-ui/core';
 import { Redirect } from 'react-router';
 import {Alert} from '@material-ui/lab';
-import {NewUser} from '../../dtos/new-user';
+import {NewUser} from '../../models/NewUser';
 import { User } from '../../models/User';
 
 
