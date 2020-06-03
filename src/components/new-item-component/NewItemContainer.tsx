@@ -6,7 +6,7 @@ import { newItemAction } from "../../actions/new-item-action";
 
 const mapStateToProps = (state: IState) => {
     return {
-        newItem: state.addNewItem.newItem
+        newItem: state.addItem.newItem
     }
 }
 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { makeStyles, Typography, FormControl, InputLabel, Input, Button, TextField, InputAdornment } from '@material-ui/core';
+import { makeStyles, Typography, FormControl, InputLabel, Input, Button, TextField, InputAdornment, Select, MenuItem, FormControlLabel, Radio, RadioGroup } from '@material-ui/core';
 import { Link, Redirect } from 'react-router-dom';
 import { NewInventory } from '../../models/NewInventory';
 
@@ -11,16 +11,7 @@ export interface INewItemProps {
 } 
 
 const useStyles = makeStyles({
-    loginContainer: {
-        display: "flex",
-        justifyContent: "center",
-        margin: 20,
-        marginTop: 40,
-        padding: 20
-    },
-    loginForm: {
-        width: "50%"
-    }
+
 });
 
 let AddItemComponent = (props: INewItemProps) => {
@@ -45,7 +36,7 @@ let AddItemComponent = (props: INewItemProps) => {
                 setCost(e.target.value);
                 break;
             case 'category':
-                setCategory(e.target.value);
+                setCategory((e.target as HTMLInputElement).value);
                 break;
             case 'item_image':
                 setItemImage(e.target.value);
@@ -57,7 +48,7 @@ let AddItemComponent = (props: INewItemProps) => {
 
     
 
-    let submit = async () => {
+    let addNewItem = async () => {
         
         let item = new NewInventory(item_name, details, +cost, category, item_image);
 
@@ -69,33 +60,58 @@ let AddItemComponent = (props: INewItemProps) => {
         //<Redirect to='/login'/>:
         <>
         <div style={{ marginTop: 0, marginLeft: '28%', marginRight: '28%', marginBottom: '13%', backgroundColor:'rgba(255, 255, 255, 0.651)'}} className='border-radius'>
-        <div className={classes.loginContainer}>
-            <form className={classes.loginForm}>
+        <div >
+            <form >
                 <Typography align="left" variant="h4">New Inventory Item</Typography>
 
                 <FormControl margin="normal" fullWidth>
-                    <InputLabel htmlFor="item_name">Amount</InputLabel>
+                    <InputLabel htmlFor="item_name">Name</InputLabel>
                     <Input 
                         onChange={updateField} 
                         value={item_name} 
                         id="item_name" type="text" 
-                        placeholder="item_name"
-                        startAdornment={<InputAdornment position="start">$</InputAdornment>} />
+                        placeholder="Item Name"/>
                 </FormControl>
                 <FormControl margin="normal" fullWidth>
-                    <InputLabel htmlFor="item_name">Amount</InputLabel>
+                    <InputLabel htmlFor="details">Details</InputLabel>
                     <Input 
                         onChange={updateField} 
                         value={details} 
                         id="details" type="text" 
-                        placeholder="details"
+                        placeholder="Details" />
+                </FormControl>
+                <FormControl margin="normal" fullWidth>
+                    <InputLabel htmlFor="cost">Cost</InputLabel>
+                    <Input 
+                        onChange={updateField} 
+                        value={cost} 
+                        id="cost" type="text" 
+                        placeholder="Cost"
                         startAdornment={<InputAdornment position="start">$</InputAdornment>} />
                 </FormControl>
+                <FormControl margin="normal" fullWidth>
+                    <InputLabel htmlFor="category">Category</InputLabel>
+                    <br/><br/>
+                    <RadioGroup aria-label="category" name="category" value={category} onChange={e => setCategory(e.target.value)}>
+                        {/* will need to update categories before production */}
+                        <FormControlLabel value="Category 1" control={<Radio />} label="Category 1" />
+                        <FormControlLabel value="Category 2" control={<Radio />} label="Category 2" />
+                        <FormControlLabel value="Category 3" control={<Radio />} label="Category 3" />
+                    </RadioGroup>
+                </FormControl>
+                <FormControl margin="normal" fullWidth>
+                    <InputLabel htmlFor="item_image">Item Image</InputLabel>
+                    <Input 
+                        onChange={updateField} 
+                        value={item_image} 
+                        id="item_image" type="text" 
+                        placeholder="Item image URL"/>
+                </FormControl>
 
-                
+
 
                 <br/><br/>
-                <Link onClick={submit} to='/edash/my-reimbs' className="btn btn-primary btn-m" role="button" style={{color: 'white', backgroundColor: "#3340a1", borderColor: "#3340a1"}}>Save Reimbursement</Link>
+                <Link onClick={addNewItem} to='/admin-dashboard' className="btn btn-primary btn-m" role="button" style={{color: 'white', backgroundColor: "#3340a1", borderColor: "#3340a1"}}>Add Item</Link>
                 <br/><br/>
                 {
                     errorMessage 
