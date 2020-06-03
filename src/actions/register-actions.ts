@@ -1,4 +1,4 @@
-import {NewUser} from '../models/NewUser'
+import {NewUser} from '../models/NewUser';
 import {Dispatch} from 'redux';
 // import {register} from '../remote/user-service';
 import {loginActionTypes} from './login-actions';
