@@ -29,7 +29,6 @@ export interface ICartState {
 }
 
 export interface IBrowseItemsState {
-    inventory: Array<Inventory>;
     thisItemId: number;
 }
 
