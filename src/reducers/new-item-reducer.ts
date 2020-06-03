@@ -1,9 +1,10 @@
 import { AnyAction } from "redux";
 import { INewItemState } from ".";
 import { newItemActionTypes } from "../actions/new-item-action";
+import { NewInventory } from "../models/NewInventory";
 
 const initialState: INewItemState ={
-    // @ts-ignore
+    //@ts-ignore
     newItem: (null as NewInventory),
     errorMessage: ''
 }
@@ -22,5 +23,7 @@ export const newItemReducer = (state: INewItemState = initialState, action: AnyA
                 ...state,
                 errorMessage: action.payload 
             }
+        default:
+            return state;
     }
 }
