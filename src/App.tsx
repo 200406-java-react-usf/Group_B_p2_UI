@@ -14,6 +14,8 @@ import { store } from './Store';
 // import CartComponent from './components/cart-component/CartContainer';
 import AdminDashComponent from './components/admin-dash-component/AdminDashContainer';
 import NavbarComponent from './components/navbar-component/NavbarContainer';
+import NewItemComponent from './components/new-item-component/NewItemContainer';
+import NewItemContainer from './components/new-item-component/NewItemContainer';
 
 function App() {
   return (
@@ -34,6 +36,7 @@ function App() {
             {/*<Route path={`/item-details-${}`} render={() => <ItemDetailsComponent />} />
             <Route path='/browse' render={() => <BrowseItemsComponent />} />
             <Route path='/cart' render={() => <CartComponent />} />*/}
+            <Route path='/additem' render={() => <NewItemComponent />} />
             <Route path='/admin-dashboard' render={() => <AdminDashComponent />} /> 
           </Switch>
         </Router>
