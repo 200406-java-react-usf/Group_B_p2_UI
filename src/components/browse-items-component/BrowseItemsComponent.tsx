@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, ChangeEvent } from 'react';
 import {Inventory} from '../../models/Inventory';
-import { Container, Card, CardActionArea, CardMedia, Typography, CardContent, CardActions, Button, makeStyles, Grid, Theme, createStyles, Paper, List, Slider, Checkbox } from '@material-ui/core';
+import { Container, Card, CardActionArea, CardMedia, Typography, CardContent, CardActions, Button, makeStyles, Grid, Theme, createStyles, Paper, List, Slider, Checkbox, FormControlLabel, ListItem, ListItemText, Divider, RadioGroup, Radio } from '@material-ui/core';
 import { Link } from 'react-router-dom';
+import { listenerCount } from 'cluster';
 
 interface IBrowseProps {
 }
@@ -9,11 +10,11 @@ interface IBrowseProps {
 const useStyles = makeStyles((theme:Theme) =>
     createStyles({
         root: {
-            width:300,
+            width:280,
             height: 500
         },
         media: {
-            height: 400
+            height: 350
         },
         paper: {
             padding: theme.spacing(2),
@@ -29,83 +30,124 @@ let BrowseItemsComponent = (props: IBrowseProps) => {
     const[items, setItems] = useState([] as Inventory[]);
     const[priceValue, setPriceValue] = useState<number[]>([0, 100]);
     const[filterVals, setFilterVals] = useState<string[]>([]);
+    const[currentFilters, setCurrentFilters] = useState<string[]>([]);
+    const[currentSort, setCurrentSort] = useState<string>("new");
     
     let itemCards: any[] = [];
     let category: string[] = [];
     let filters: Array<any> = [];
+    
 
     const classes = useStyles();
 
     const handleChange = (event: any, newValue: number | number[]) => {
         setPriceValue(newValue as number[]);
-      };
+    };
+
+    const handleSortChange = (event: any) => {
+        setCurrentSort((event.target as HTMLInputElement).value);
+    }
 
     function valuetext(value: number) {
         return `$${value}`;
     }
 
-    //const filterChange = (event: any, )
+    const applyFilters = (event: any) => {
+        if(event.target.checked && !currentFilters.includes(event.target.value)){
+            let filter = [...currentFilters];
+            filter.push(event.target.value)
+            setCurrentFilters(filter);
+        } else if (!event.target.checked && currentFilters.includes(event.target.value)){
+            let filter = [...currentFilters];
+            filter = filter.filter(val => val != event.target.value);
+            setCurrentFilters(filter);
+        }
+        console.log(currentFilters) 
+    }
 
-    useEffect(() => {
-        
+
+    useEffect(() => { 
     
         let fetchData = async () => {
     
         //const response = await getInventory();
     
         let item1 = new Inventory(1, "item 1", "first item", 1.00, "other", "https://project-two-meme-store-pictures.s3.us-east-2.amazonaws.com/gaming-meme/Funny-Gaming-Memes-29.jpg");
-        let item2 = new Inventory(2, "item 2", "second item", 2.00, "other", "image");
-        let item3 = new Inventory(3, "item 3", "third item", 3.00, "other", "image");
-        let item4 = new Inventory(4, "if 1 has a long name what does it look like", "fourth item", 4.00, "other", "image");
-        let item5 = new Inventory(5, "item 5", "fifth item", 5.00, "other", "image");
+        let item2 = new Inventory(2, "item 2", "second item", 56.00, "a", "image");
+        let item3 = new Inventory(3, "item 3", "third item", 3.00, "b", "image");
+        let item4 = new Inventory(4, "if 1 has a", "fourth item", 4.00, "c", "image");
+        let item5 = new Inventory(5, "item 5", "fifth item", 5.00, "d", "image");
     
         
-        const response = [item1, item2, item3, item4, item5]
-    
+        let response = [item1, item2, item3, item4, item5]
+        
+        if(currentSort === "new"){
+            response = response.sort((a, b) => (a.item_id > b.item_id) ? 1 : -1)
+        } else if(currentSort === "old"){
+            response = response.sort((a, b) => (a.item_id < b.item_id) ? 1 : -1)
+        } else if(currentSort === "low"){
+            response = response.sort((a, b) => (a.cost > b.cost) ? 1 : -1)
+        } else if(currentSort === "high"){
+            response = response.sort((a, b) => (a.cost < b.cost) ? 1 : -1)
+        }
         
         response.forEach(element => {if(!category.includes(element.category)) category.push(element.category)})
-
-        console.log(category)
-
+        
+            for(let item of category){
+                filters.push(
+                    <ListItem>
+                    <FormControlLabel
+                        value={item}
+                        onChange={applyFilters}
+                        control={<Checkbox color="secondary" />}
+                        label={item}
+                        labelPlacement="end"
+                    />
+                    </ListItem>
+                )
+            }
+            setFilterVals(filters);
+            console.log(priceValue[0], priceValue[1])
 
             for (let item of response){
-
-                itemCards.push(
-                    <Grid item spacing={2}>
-                        <Card className={classes.root}>
-                            <CardActionArea>
-                                <CardMedia
-                                className={classes.media}
-                                image={item.item_image}
-                                title={item.item_name}
-                                />
-                                <CardContent>
-                                <Link to={`/item-details-${item.item_id}`} color="primary">
-                                    <Typography gutterBottom variant="h5" component="h2">
-                                        {item.item_name}
+                if((currentFilters.length === 0 || currentFilters.includes(item.category)) && item.cost > priceValue[0] && item.cost < priceValue[1]){
+                    itemCards.push(
+                        <Grid item spacing={2}>
+                            <Card className={classes.root} raised={true}>
+                                <CardActionArea>
+                                    <CardMedia
+                                    className={classes.media}
+                                    image={item.item_image}
+                                    title={item.item_name}
+                                    />
+                                    <CardContent>
+                                    <Link to={`/item-details-${item.item_id}`} color="primary">
+                                        <Typography gutterBottom variant="h5" component="h2">
+                                            {item.item_name}
+                                        </Typography>
+                                    </Link>
+                                    <Typography variant="body2" color="textSecondary" component="p">
+                                        {"$" + item.cost.toFixed(2)}
                                     </Typography>
-                                </Link>
-                                <Typography variant="body2" color="textSecondary" component="p">
-                                    {"$" + item.cost.toFixed(2)}
-                                </Typography>
-                                </CardContent>
-                            </CardActionArea>
-                            <CardActions>
-                                <Link to={`/item-details-${item.item_id}`} color="primary">
-                                    Details
-                                </Link>
-                            </CardActions>
-                        </Card>
-                    </Grid>
-                    
-                )
+                                    </CardContent>
+                                </CardActionArea>
+                                <CardActions>
+                                    <Link to={`/item-details-${item.item_id}`} color="primary">
+                                        Details
+                                    </Link>
+                                </CardActions>
+                            </Card>
+                        </Grid>
+                        
+                    )
+                }
             }
             setItems(itemCards);
         };
 
         fetchData();
 
-    }, []);
+    }, [currentFilters, priceValue, currentSort]);
 
 
     
@@ -113,42 +155,52 @@ let BrowseItemsComponent = (props: IBrowseProps) => {
 
     return (
         <>
-        <div className='div'>
+        <div style={{marginTop:5, marginLeft:10}}>
             <Grid container spacing={2} justify="space-around">
-                <Grid item xs={2}>
-                    <Paper className={classes.paper}>
-                        Sort/Filter
-
+                <Grid item xs={3}>
                         <List>
-                            <Typography id="range-slider" gutterBottom>
-                            Filter by Category
-                            </Typography>
-                            {/* {{for(item of category) {
-                                <Checkbox
-                                    onChange={filterChange}
-                                    inputProps={{ 'aria-label': 'primary checkbox' }}
-                                />
-                            }}} */}
-                            <Typography id="range-slider" gutterBottom>
-                            Price range
-                            </Typography>
+                            <ListItem>
+                                <ListItemText primary="Sort By"/>
+                            </ListItem>
+                            <Divider />
+                            <ListItem>
+                            <RadioGroup aria-label="gender" name="gender1" value={currentSort} onChange={handleSortChange}>
+                                <FormControlLabel value="new" control={<Radio />} label="New to Old" />
+                                <FormControlLabel value="old" control={<Radio />} label="Old to New" />
+                                <FormControlLabel value="low" control={<Radio />} label="Price: Low to High" />
+                                <FormControlLabel value="high" control={<Radio />} label="Price: High to Low" />
+                            </RadioGroup>
+                            </ListItem>
+                            <ListItem>
+                                <ListItemText primary="Filter By"/>
+                            </ListItem>
+                            <Divider />
+                            <ListItem>
+                            <ListItemText primary="Category"/>
+                            </ListItem>
+                            {filterVals}
+                            <Divider />
+                            <ListItem>
+                            <ListItemText primary="Price"/>
+                            </ListItem>
+                            <br></br>
+                            <div style={{paddingLeft:15, paddingRight:8, paddingTop:10}}>
                             <Slider
                             value={priceValue}
                             onChange={handleChange}
-                            valueLabelDisplay="auto"
                             aria-labelledby="range-slider"
                             getAriaValueText={valuetext}
+                            valueLabelDisplay="on"
                             />
+                            </div>
                         </List>
-                    </Paper>
                 </Grid>
-                <Grid item xs={10}>
-                    <Paper className={classes.paper}>
-                        items
-                        <Grid container spacing={2}>
-                            {items}
-                        </Grid>
-                    </Paper>
+                <Grid item xs={9}>
+                    <div style={{marginTop:50, marginLeft:10}}>
+                    <Grid container spacing={2}>
+                        {items}
+                    </Grid>
+                    </div>
                 </Grid>
             </Grid>
         </div>
