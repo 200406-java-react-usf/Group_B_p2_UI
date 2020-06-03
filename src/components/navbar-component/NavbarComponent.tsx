@@ -71,7 +71,7 @@ function NavbarComponent (props: INavbarProps) {
                                 </Typography>
                             </ListItemText>
                             
-                            <ListItemText inset>
+                            {/* <ListItemText inset>
                                 <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
                                     Admin Control Panel
                                 </Button>
@@ -97,7 +97,7 @@ function NavbarComponent (props: INavbarProps) {
                                 <Typography color="secondary" variant="h6">
                                     <Link to="/login" className={classes.logout} onClick={userLogout}>Logout</Link>
                                 </Typography>
-                            </ListItemText>
+                            </ListItemText> */}
                             
                             </> 
                         :
