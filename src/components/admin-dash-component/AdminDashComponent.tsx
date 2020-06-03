@@ -5,6 +5,7 @@ import { Alert } from '@material-ui/lab';
 import { makeStyles, Select, MenuItem } from '@material-ui/core';
 import { Redirect } from 'react-router';
 import { Inventory } from '../../models/Inventory'
+import { deleteInventoryById, newInventory, getAllInventory } from '../../remote/inventory-service';
 
 export interface IAdminDashProps {
     authUser: User;
@@ -28,21 +29,21 @@ const ReimbComponent = (props: IAdminDashProps) => {
     const [errorMessage, setErrorMessage] = useState('');
 
     let getTableData = async () => {
-        let result = (await getInventory()).filter(function(item: Inventory) {
+        let result = (await getAllInventory()).filter(function(item: Inventory) {
             return item
         });
         console.log(result);
         setTableData(result);
     }
     
-    const updateRow = async (updatedItem: Inventory) => {
-        try {
-            await updateInventory(updatedItem);
-            await getTableData();
-        } catch (e) {
-            setErrorMessage(e.response.data.reason);
-        }
-    }
+    // const updateRow = async (updatedItem: Inventory) => {
+    //     try {
+    //         await updateInventor(updatedItem);
+    //         await getTableData();
+    //     } catch (e) {
+    //         setErrorMessage(e.response.data.reason);
+    //     }
+    // }
     
     const deleteRow = async (itemToBeDeleted: Inventory) =>{
         try{
@@ -57,8 +58,8 @@ const ReimbComponent = (props: IAdminDashProps) => {
     const addNewInventory = async (newItem: Inventory) =>{
         console.log(newItem);
         try{
-            await addInventory(newItem);
-            getTableData();
+            await newInventory(newItem.item_name, newItem.details, newItem.cost, newItem.category, newItem.item_image);
+            await getTableData();
         }catch(e){
             setErrorMessage(e.response.data.reason)
         }
@@ -69,21 +70,27 @@ const ReimbComponent = (props: IAdminDashProps) => {
     }, []);
 
   return (
-    !(props.authUser.role_name =='admin')  ? <Redirect to='/home' />:   
+   // !(props.authUser.role_name =='admin')  ? <Redirect to='/home' />:   
     <>
         <div className={classes.reimbTable}>
             < MaterialTable
                 
                 columns = {[
                     { title: 'Id', field: 'item_id', editable: 'never'},
-                    { title: 'Name', field: 'item_name', editable: 'always', type: 'currency', cellStyle: {textAlign: 'left'} },
-                    { title: 'Details', field: 'details' , editable: 'always', type: 'datetime'},
-                    { title: 'Cost', field: 'cost', editable: 'always', type: 'datetime'},
+                    { title: 'Name', field: 'item_name', editable: 'always',  cellStyle: {textAlign: 'left'} },
+                    { title: 'Details', field: 'details' , editable: 'always'},
+                    { title: 'Cost', field: 'cost', editable: 'always', type: 'currency'},
                     { title: 'Category', field: 'category' , editable: 'never'},
-                    { title: 'Image', field: 'item_image' , editable: 'never'}                                  
+                    { title: 'Image', field: 'item_image' , editable: 'never', render: rowData => <img src={rowData.item_image} style={{width: 50}}/>}                                  
                 ]}
             data = {items}
             title = "Inventory Items"
+            detailPanel={rowData => {
+                return (
+                  <div>Test</div>
+                )
+              }}
+            
             editable= {{
 
                 onRowAdd: newData =>
@@ -91,11 +98,11 @@ const ReimbComponent = (props: IAdminDashProps) => {
                     addNewInventory(newData);
                     resolve();
                 }),
-                onRowUpdate: (newData, oldData) =>
-                new Promise((resolve,reject) =>{
-                    resolve();
-                    updateRow(newData);
-                }),
+                // onRowUpdate: (newData, oldData) =>
+                // new Promise((resolve,reject) =>{
+                //     resolve();
+                //     updateRow(newData);
+                // }),
                 onRowDelete: oldData =>
                 new Promise((resolve, reject) =>{
                     console.log(oldData.item_id)
