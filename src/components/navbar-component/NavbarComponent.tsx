@@ -119,8 +119,8 @@ function NavbarComponent (props: INavbarProps) {
                                     open={Boolean(anchorEl)}
                                 >
                                             <MenuItem disabled>Admin Control Panel</MenuItem>
-                                            <MenuItem onClick={handleClose}><Link to="/items">View Inventory</Link></MenuItem>
-                                            <MenuItem onClick={handleClose}><Link to="/addItem">Add Item</Link></MenuItem>
+                                            <MenuItem onClick={handleClose}><Link to="/admin-dashboard">Dashboard</Link></MenuItem>
+                                            <MenuItem onClick={handleClose}><Link to="/additem">Add Item</Link></MenuItem>
                                 </Menu>      
                             </ListItemText >
 
