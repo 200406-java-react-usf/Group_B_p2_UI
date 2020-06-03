@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {Inventory} from '../../models/Inventory';
 import { Container, Card, CardActionArea, CardMedia, Typography, CardContent, CardActions, Button, makeStyles, Grid, Theme, createStyles, Paper } from '@material-ui/core';
 import { Link } from 'react-router-dom';
+import { getAllInventory } from '../../remote/inventory-service';
 
 interface IBrowseProps {
 }
@@ -36,15 +37,8 @@ let BrowseItemsComponent = (props: IBrowseProps) => {
     
         let fetchData = async () => {
     
-        //const response = await getInventory();
-    
-        let item1 = new Inventory(1, "item 1", "first item", 1.00, "other", "image");
-        let item2 = new Inventory(2, "item 2", "second item", 2.00, "other", "image");
-        let item3 = new Inventory(3, "item 3", "third item", 3.00, "other", "image");
-        let item4 = new Inventory(4, "if 1 has a long name what does it look like", "fourth item", 4.00, "other", "image");
-        let item5 = new Inventory(5, "item 5", "fifth item", 5.00, "other", "image");
-    
-        const response = [item1, item2, item3, item4, item5]
+        const response = await getAllInventory();
+
     
             for (let item of response){
 
