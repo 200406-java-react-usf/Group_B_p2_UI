@@ -40,6 +40,7 @@ export interface IRegisterState {
 
 export interface INewItemState {
     newItem: NewInventory;
+    errorMessage:string;
 }
 
 export interface INavbarState {
@@ -60,7 +61,7 @@ export interface IState {
     login: ILoginState;
     logout: INavbarState;
     register: IRegisterState;
-    // addNewItem: INewItemState;
+    addNewItem: INewItemState;
     // getAllItems: IInventoryState;
     // updateItem: IInventoryState;
     // deleteItem: IInventoryState;
@@ -76,7 +77,7 @@ export interface IState {
 export const state = combineReducers<IState>({ 
     register: registerReducer,
     logout: navbarReducer,
-    // addNewItem: newItemReducer,
+    addNewItem: newItemReducer,
     // getAllItems: inventoryReducer,
     // updateItem: inventoryReducer,
     // deleteItem: inventoryReducer,
