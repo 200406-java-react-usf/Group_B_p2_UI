@@ -35,6 +35,7 @@ export interface IBrowseItemsState {
 
 export interface IRegisterState {
     newUser: NewUser;
+    errorMessage:string;
 }
 
 export interface INewItemState {
@@ -58,7 +59,7 @@ export interface IInvoiceState {
 export interface IState {
     login: ILoginState;
     logout: INavbarState;
-    // register: IRegisterState;
+    register: IRegisterState;
     // addNewItem: INewItemState;
     // getAllItems: IInventoryState;
     // updateItem: IInventoryState;
@@ -73,7 +74,7 @@ export interface IState {
 }
 
 export const state = combineReducers<IState>({ 
-    //register: registerReducer,
+    register: registerReducer,
     logout: navbarReducer,
     // addNewItem: newItemReducer,
     // getAllItems: inventoryReducer,
