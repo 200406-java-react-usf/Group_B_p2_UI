@@ -28,7 +28,7 @@ const useStyles = makeStyles({
 let ItemDetailsComponent = (props: IItemDetailsProps) =>{
 	const classes = useStyles();
 
-	let item = new Inventory(1, "item 1", "a meme about gamers and a wholesome relationship with their mothers that they never thought was possible", 1.00, "other", "https://project-two-meme-store-pictures.s3.us-east-2.amazonaws.com/gaming-meme/Funny-Gaming-Memes-29.jpg")
+	//let item = new Inventory(1, "item 1", "a meme about gamers and a wholesome relationship with their mothers that they never thought was possible", 1.00, "other", "https://project-two-meme-store-pictures.s3.us-east-2.amazonaws.com/gaming-meme/Funny-Gaming-Memes-29.jpg")
 	
 	return (
 		<div style={{padding:"2%"}}>
@@ -36,27 +36,27 @@ let ItemDetailsComponent = (props: IItemDetailsProps) =>{
                 <Link color="inherit" href="/browse">
                     All Memes
                 </Link>
-                <Typography color="textPrimary">{item.item_name}</Typography>
+                <Typography color="textPrimary">{props.thisItem.item_name}</Typography>
             </Breadcrumbs>
             <Paper style={{padding:"2%", marginTop:"1%"}}>
             <Grid container>
                 <Grid item xs={5}>
-                    <img src={item.item_image} style={{maxHeight:500}}/>
+                    <img src={props.thisItem.item_image} style={{maxHeight:500}}/>
                 </Grid>
                 <Grid item xs={6}>
                     <List>
                         <ListItem>
-                            <ListItemText primary={item.item_name}/>
+                            <ListItemText primary={props.thisItem.item_name}/>
                         </ListItem>
                         <Divider />
                         <ListItem>
-                            <ListItemText primary={"Price: $" + item.cost.toFixed(2)}/>
+                            <ListItemText primary={"Price: $" + props.thisItem.cost.toFixed(2)}/>
                         </ListItem>
                         <ListItem>
-                            <ListItemText primary={"category: " + item.category}/>
+                            <ListItemText primary={"category: " + props.thisItem.category}/>
                         </ListItem>
                         <ListItem>
-                            <ListItemText primary={item.details}/>
+                            <ListItemText primary={props.thisItem.details}/>
                         </ListItem>
                         <ListItem>
                         <div style={{paddingRight:100}}>
