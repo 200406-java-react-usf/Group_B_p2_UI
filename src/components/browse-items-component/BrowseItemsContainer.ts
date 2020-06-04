@@ -6,7 +6,7 @@ import { browseAction } from "../../actions/browse-items";
 
 const mapStateToProps = (state: IState) => {
     return {
-        
+        thisItem: state.setThisItem.thisItem
     }
 }
 

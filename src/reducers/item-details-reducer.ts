@@ -3,8 +3,7 @@ import { IItemDetailsState } from ".";
 import { Inventory } from "../models/Inventory";
 
 const initialState: IItemDetailsState ={
-    //@ts-ignore
-    thisItem: (null as Inventory)
+    
 }
 
 

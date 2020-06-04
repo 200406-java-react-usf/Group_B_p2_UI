@@ -1,4 +1,5 @@
 import { Dispatch } from "redux";
+import { Inventory } from "../models/Inventory";
 
 export const thisItemActionTypes = {
     SUCCESSFUL_SET_THIS_ITEM: 'MEME_SUCCESSFUL_SET_THIS_ITEM',
@@ -6,10 +7,10 @@ export const thisItemActionTypes = {
     INTERNAL_SERVER_ERROR: 'MEME_INTERNAL_SERVER_ERROR'
 }
 
-export const browseAction = (thisItemId: number) => async (dispatch: Dispatch) => {
+export const browseAction = (thisItem: Inventory) => async (dispatch: Dispatch) => {
     
     try {
-        let thisItem = thisItemId;
+        
         dispatch({
             type: thisItemActionTypes.SUCCESSFUL_SET_THIS_ITEM,
             payload: thisItem

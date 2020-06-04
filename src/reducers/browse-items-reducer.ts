@@ -14,7 +14,7 @@ export const browseItemsReducer = (state: IBrowseItemsState = initialState, acti
         case thisItemActionTypes.SUCCESSFUL_SET_THIS_ITEM:
             return {
                 ...state,
-                thisItemId: action.payload
+                thisItem: action.payload
             }
 
         case thisItemActionTypes.BAD_REQUEST:

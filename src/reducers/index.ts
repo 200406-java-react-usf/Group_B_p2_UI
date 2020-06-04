@@ -21,7 +21,7 @@ export interface ILoginState {
 }
 
 export interface IItemDetailsState {
-    thisItem: Inventory
+    
 }
 
 export interface ICartState {
