@@ -14,11 +14,13 @@ import { store } from './Store';
 // import CartComponent from './components/cart-component/CartContainer';
 import AdminDashComponent from './components/admin-dash-component/AdminDashContainer';
 import NavbarComponent from './components/navbar-component/NavbarContainer';
+import InvoiceComponent from './components/invoices-component/InvoicesContainer';
 
 function App() {
   return (
     <div className="App">
       <Provider store ={store}>
+        
         <Router>
           <AppBar color="primary" position="static">
             <Toolbar>
@@ -35,6 +37,7 @@ function App() {
             <Route path='/browse' render={() => <BrowseItemsComponent />} />
             <Route path='/cart' render={() => <CartComponent />} />*/}
             <Route path='/admin-dashboard' render={() => <AdminDashComponent />} /> 
+            <Route path='/invoices' render={() => <InvoiceComponent />} /> 
           </Switch>
         </Router>
       </Provider>
