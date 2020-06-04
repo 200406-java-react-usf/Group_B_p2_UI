@@ -63,7 +63,7 @@ function LoginComponent(props: ILoginProps) {
     }
 
     let preLoginTracking = async () => {
-        console.log('Attemp to login with google');
+        console.log('Login with Google');
     }
  
     let errorHandler = async (error: string) => {
@@ -75,7 +75,7 @@ function LoginComponent(props: ILoginProps) {
         const googleId = googleUser.getId()
         
         const user = googleUser.getBasicProfile();
-        
+        //getName will equal getGivenName if no familyName is provided
         console.log(user.getId());
         console.log(user.getGivenName());
         console.log(user.getFamilyName());
