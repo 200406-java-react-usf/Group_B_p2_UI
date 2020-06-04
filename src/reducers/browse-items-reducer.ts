@@ -1,9 +1,11 @@
 import { AnyAction } from "redux";
 import { IBrowseItemsState } from ".";
 import {thisItemActionTypes} from "../actions/browse-items"
+import { Inventory } from "../models/Inventory";
 
 const initialState: IBrowseItemsState ={
-    thisItemId: 0
+    //@ts-ignore
+    thisItem: (null as Inventory)
 }
 
 

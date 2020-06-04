@@ -21,7 +21,7 @@ export interface ILoginState {
 }
 
 export interface IItemDetailsState {
-    
+    thisItem: Inventory
 }
 
 export interface ICartState {
@@ -29,7 +29,7 @@ export interface ICartState {
 }
 
 export interface IBrowseItemsState {
-    thisItemId: number;
+    thisItem: Inventory;
 }
 
 export interface IRegisterState {
@@ -69,7 +69,7 @@ export interface IState {
     // newInvoice: ICartState;
     //getInventory: IBrowseItemsState; 
     // getItemDetails:  IItemDetailsState;
-    //setThisItem: IBrowseItemsState;
+    setThisItem: IBrowseItemsState;
 }
 
 export const state = combineReducers<IState>({ 
@@ -84,7 +84,6 @@ export const state = combineReducers<IState>({
     // updateQuantity: cartReducer,
     // newInvoice: cartReducer,
     // getInventory: browseItemsReducer,
-    // getItemDetails: itemDetailsReducer,
-    //setThisItem: browseItemsReducer,
+    setThisItem: browseItemsReducer,
     login: loginReducer
 });
