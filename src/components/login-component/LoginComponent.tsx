@@ -10,7 +10,8 @@ import {
     InputLabel, 
     Input, 
     Button, 
-    makeStyles 
+    makeStyles, 
+    Divider
 } from '@material-ui/core';
 
 import { Redirect } from 'react-router';
@@ -18,6 +19,7 @@ import { User } from '../../models/User';
 
 interface ILoginProps {
     authUser: User;
+    //gUser: User;
     errorMessage: string;
     loginAction: (username: string, password: string) => void;
 }
@@ -32,6 +34,11 @@ const useStyles = makeStyles({
     },
     loginForm: {
         width: "50%"
+    },
+    centerButton:
+    {
+        display: "flex",
+        justifyContent: "center"
     }
 });
 
@@ -81,8 +88,14 @@ function LoginComponent(props: ILoginProps) {
         console.log(user.getFamilyName());
         console.log(user.getName());
         console.log(user.getEmail());
-        
-        
+
+        // props.gUser.username = user.getName();
+        // props.gUser.email = user.getEmail();
+        // props.gUser.first_name = user.getGivenName();
+        // props.gUser.last_name = "GoogleGuest";
+        // props.gUser.password = user.getId();
+
+        // console.log(props.gUser);
         // console.log({ googleId })
         // console.log({accessToken: id_token})
 
@@ -115,12 +128,17 @@ function LoginComponent(props: ILoginProps) {
                     </FormControl>
                     <br/><br/>
                     <Button onClick={login} variant="contained" color="secondary" size="medium">Login</Button>
+                    <br/><br/>
+                    <Divider variant="middle" />
+                    <br/><br/>
+                    <div className={classes.centerButton}>
                     <GoogleLoginButton
                         responseHandler={responseGoogle}
                         clientConfig={clientConfig}
                         preLogin={preLoginTracking}
                         failureHandler={errorHandler}
                     />
+                    </div>
                     {
                         props.errorMessage 
                             ? 
