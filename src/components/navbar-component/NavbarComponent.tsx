@@ -3,12 +3,13 @@ import { Link } from 'react-router-dom';
 import { User } from '../../models/User';
 import { makeStyles, List, ListItem, Typography, ListItemText, Select, Menu, MenuItem, Button, ClickAwayListener, IconButton, Badge } from '@material-ui/core';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import { Inventory } from '../../models/Inventory';
 
 //Navbar Properties passed from container
 interface INavbarProps {
     authUser: User;
     errorMessage: string;
-    itemCount: number;  //will update based on actions elsewhere
+    cart: Inventory[];
     logoutAction: () => void;
 }
 //Navbar Style Set
@@ -50,28 +51,22 @@ function NavbarComponent (props: INavbarProps) {
             <List component="nav">
                 <ListItem component="div">
                     <Typography color="inherit" variant="h5">
-                        <Link to="/home" className={classes.link}>Insert Logo Here</Link>
+                        <Link to="/home" className={classes.link}>
+                            <img width="100" src="https://project-two-meme-store-pictures.s3.us-east-2.amazonaws.com/logo/meme+store.PNG"/>
+                        </Link>
                     </Typography>
                     {
                         !  props.authUser ?
                         <>
-                            <ListItemText inset>
-                                <Typography color="inherit" variant="h6">
-                                    <Link to="/login" className={classes.link}>Login</Link>
-                                </Typography>
-                            </ListItemText>
-                            <ListItemText inset>
-                                <Typography color="inherit" variant="h6">
-                                    <Link to="/register" className={classes.link}>Register</Link>
-                                </Typography>
-                            </ListItemText>
+                            
+                            
                             <ListItemText inset>
                                 <Typography color="inherit" variant="h6">
                                     <Link to="/browse" className={classes.link}>Browse Memes</Link>
                                 </Typography>
                             </ListItemText>
                             
-                            {/* <ListItemText inset>
+                             <ListItemText inset>
                                 <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
                                     Admin Control Panel
                                 </Button>
@@ -82,22 +77,35 @@ function NavbarComponent (props: INavbarProps) {
                                     open={Boolean(anchorEl)}
                                 >
                                             <MenuItem disabled>Admin Control Panel</MenuItem>
+                                            <MenuItem onClick={handleClose}><Link to="/admin-dashboard">Dashboard</Link></MenuItem>
                                             <MenuItem onClick={handleClose}><Link to="/items">View Inventory</Link></MenuItem>
                                             <MenuItem onClick={handleClose}><Link to="/addItem">Add Item</Link></MenuItem>
                                 </Menu>      
                             </ListItemText >
                             <ListItemText inset>
-                                <Badge color ="secondary" badgeContent={4}>
                                     <Link to="/cart" className={classes.logout} onClick={userLogout}>
+                                    <Badge color ="secondary" badgeContent={props.cart.length}>
                                          <ShoppingCartIcon /> 
+                                    </Badge>
                                     </Link>
-                                 </Badge>
+                                 
+                            </ListItemText>
+                            <ListItemText inset>
+                                <Typography color="inherit" variant="h6" style={{marginLeft:0, marginRight:0}}>
+                                    <Link to="/register" className={classes.link}>Register</Link>
+                                </Typography>
+                            </ListItemText>
+                            <ListItemText inset>|</ListItemText>
+                            <ListItemText inset>
+                                <Typography color="inherit" variant="h6">
+                                    <Link to="/login" className={classes.link}>Login</Link>
+                                </Typography>
                             </ListItemText>
                             <ListItemText inset>
                                 <Typography color="secondary" variant="h6">
                                     <Link to="/login" className={classes.logout} onClick={userLogout}>Logout</Link>
                                 </Typography>
-                            </ListItemText> */}
+                            </ListItemText> 
                             
                             </> 
                         :
@@ -139,7 +147,7 @@ function NavbarComponent (props: INavbarProps) {
                                 </Typography>
                             </ListItemText>
                             <ListItemText inset>
-                                <Badge color ="secondary" badgeContent={props.itemCount}>
+                                <Badge color ="secondary" badgeContent={props.cart.length}>
                                     <Link to="/cart" className={classes.logout} onClick={userLogout}>
                                          <ShoppingCartIcon /> 
                                     </Link>
