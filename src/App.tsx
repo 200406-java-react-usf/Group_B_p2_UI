@@ -7,12 +7,14 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { store } from './Store';
 
 // import HomeComponent from './components/home-component/HomeContainer';
+
 import LoginComponent from './components/login-component/LoginContainer';
 import RegisterComponent from './components/register-component/RegisterContainer';
 import ItemDetailsComponent from './components/item-details-component/ItemDetailsContainer';
 import BrowseItemsComponent from './components/browse-items-component/BrowseItemsContainer';
 // import CartComponent from './components/cart-component/CartContainer';
 // import AdminDashComponent from './components/admin-dash-component/AdminDashContainer';
+
 import NavbarComponent from './components/navbar-component/NavbarContainer';
 
 
@@ -29,13 +31,14 @@ function App() {
             </Toolbar>
           </AppBar>
           <Switch>
+
             <Route path='/login' render={() => <LoginComponent />} />
             <Route path='/browse' render={() => <BrowseItemsComponent />} />
             <Route path='/register' render={() => <RegisterComponent />} />
             <Route path={'/item-details'} render={() => <ItemDetailsComponent />} />
 
-            {/* <Route path='/home' render={() => <HomeComponent />} />
-            <Route path={`/item-details-${}`} render={() => <ItemDetailsComponent />} />
+            {/*
+            <Route path='/home' render={() => <HomeComponent />} /> 
             <Route path='/cart' render={() => <CartComponent />} />
             <Route path='/admin-dashboard' render={() => <AdminDashComponent />} /> */}
 

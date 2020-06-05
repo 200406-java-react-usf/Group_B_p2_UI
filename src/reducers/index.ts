@@ -34,7 +34,8 @@ export interface IBrowseItemsState {
 
 export interface IRegisterState {
     newUser: NewUser;
-    errorMessage: string;
+    errorMessage:string;
+
 }
 
 export interface INewItemState {

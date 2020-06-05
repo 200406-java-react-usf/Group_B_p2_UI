@@ -16,7 +16,7 @@ export async function newInventory(item_name: string, details:string, cost: numb
 	return response.data;
 }
 
-export async function deleteUser(id: number){
+export async function deleteInventory(id: number){
 	let response = await memeStoreClient.delete(`/memestore/inventory/delete?id=${id}`);
 	return await response.data;
 }
