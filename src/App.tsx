@@ -13,7 +13,7 @@ import RegisterComponent from './components/register-component/RegisterContainer
 import ItemDetailsComponent from './components/item-details-component/ItemDetailsContainer';
 import BrowseItemsComponent from './components/browse-items-component/BrowseItemsContainer';
 // import CartComponent from './components/cart-component/CartContainer';
-// import AdminDashComponent from './components/admin-dash-component/AdminDashContainer';
+import AdminDashComponent from './components/admin-dash-component/AdminDashContainer';
 
 import NavbarComponent from './components/navbar-component/NavbarContainer';
 import NewItemComponent from './components/new-item-component/NewItemContainer';
@@ -36,7 +36,7 @@ function App() {
 
             <Route path='/login' render={() => <LoginComponent />} />
             <Route path='/browse' render={() => <BrowseItemsComponent />} />
-            <Route path='/cart' render={() => <CartComponent />} />*/}
+           {/* <Route path='/cart' render={() => <CartComponent />} />*/}
             <Route path='/additem' render={() => <NewItemComponent />} />
             <Route path='/admin-dashboard' render={() => <AdminDashComponent />} /> 
             <Route path='/register' render={() => <RegisterComponent />} />

@@ -1,6 +1,6 @@
 import {NewInventory} from '../models/NewInventory';
 import {Dispatch} from 'redux';
-//import {newInventory} from '../remote/inventory-service';
+import {newInventory} from '../remote/inventory-service';
 
 
 export const newItemActionTypes = {
@@ -11,8 +11,9 @@ export const newItemActionTypes = {
 
 export const newItemAction = (newItem: NewInventory) => async (dispatch: Dispatch) =>{
 	try {
-		//let addedItem = await newInventory(newItem.item_name, newItem.details, newItem.cost, newItem.category, newItem.item_image);
-		let addedItem = newItem;
+		let addedItem = await newInventory(newItem.item_name, newItem.details, newItem.cost, newItem.category, newItem.item_image);
+		
+		//let addedItem = newItem;
 		dispatch({
 			type: newItemActionTypes.SUCCESSFUL_NEW_ITEM,
 			payload: addedItem
