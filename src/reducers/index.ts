@@ -44,6 +44,7 @@ export interface INewItemState {
 
 export interface INavbarState {
     itemCount: number;
+    cart: Array<Inventory>;
     errorMessage: string;
 }
 
