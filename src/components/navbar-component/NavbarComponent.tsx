@@ -3,12 +3,13 @@ import { Link } from 'react-router-dom';
 import { User } from '../../models/User';
 import { makeStyles, List, ListItem, Typography, ListItemText, Select, Menu, MenuItem, Button, ClickAwayListener, IconButton, Badge } from '@material-ui/core';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import { Inventory } from '../../models/Inventory';
 
 //Navbar Properties passed from container
 interface INavbarProps {
     authUser: User;
     errorMessage: string;
-    itemCount: number;
+    cart: Inventory[];
     logoutAction: () => void;
 }
 //Navbar Style Set
@@ -144,7 +145,7 @@ function NavbarComponent (props: INavbarProps) {
                                 </Typography>
                             </ListItemText>
                             <ListItemText inset>
-                                <Badge color ="secondary" badgeContent={props.itemCount}>
+                                <Badge color ="secondary" badgeContent={props.cart.length}>
                                     <Link to="/cart" className={classes.logout} onClick={userLogout}>
                                          <ShoppingCartIcon /> 
                                     </Link>

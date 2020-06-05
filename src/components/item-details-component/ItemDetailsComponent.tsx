@@ -8,6 +8,7 @@ import { detailsAction } from '../../actions/item-details-actions';
 
 export interface IItemDetailsProps{
     thisItem: Inventory
+    cart: Inventory[]
     detailsAction: ((cart: Inventory[]) => void)
 }
 
@@ -37,7 +38,7 @@ let ItemDetailsComponent = (props: IItemDetailsProps) =>{
     }
     
     const addToCart = () => {
-        let array: Array<Inventory> = []
+        let array: Array<Inventory> = [...props.cart]
         for(let i = 0; i < quantity; i++) {
             array.push(props.thisItem);
         }
