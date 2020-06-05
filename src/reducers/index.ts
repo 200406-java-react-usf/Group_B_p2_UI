@@ -21,7 +21,7 @@ export interface ILoginState {
 }
 
 export interface IItemDetailsState {
-    
+    cartItems: Array<Inventory>;
 }
 
 export interface ICartState {
@@ -29,13 +29,13 @@ export interface ICartState {
 }
 
 export interface IBrowseItemsState {
-    inventory: Array<Inventory>;
-    thisItemId: number;
+    thisItem: Inventory;
 }
 
 export interface IRegisterState {
     newUser: NewUser;
     errorMessage:string;
+
 }
 
 export interface INewItemState {
@@ -65,13 +65,13 @@ export interface IState {
     // getAllItems: IInventoryState;
     // updateItem: IInventoryState;
     // deleteItem: IInventoryState;
-    // addItemToCart: IItemDetailsState;
+    setCartItems: IItemDetailsState;
     // deleteItemFromCart: ICartState;
     // updateQuantity: ICartState;
     // newInvoice: ICartState;
-    // getInventory: IBrowseItemsState; 
+    //getInventory: IBrowseItemsState; 
     // getItemDetails:  IItemDetailsState;
-    // setThisItem: IBrowseItemsState;
+    setThisItem: IBrowseItemsState;
 }
 
 export const state = combineReducers<IState>({ 
@@ -81,12 +81,11 @@ export const state = combineReducers<IState>({
     // getAllItems: inventoryReducer,
     // updateItem: inventoryReducer,
     // deleteItem: inventoryReducer,
-    // addItemToCart: itemDetailsReducer,
+    setCartItems: itemDetailsReducer,
     // deleteItemFromCart: cartReducer,
     // updateQuantity: cartReducer,
     // newInvoice: cartReducer,
     // getInventory: browseItemsReducer,
-    // getItemDetails: itemDetailsReducer,
-    // setThisItem: browseItemsReducer,
+    setThisItem: browseItemsReducer,
     login: loginReducer
 });
