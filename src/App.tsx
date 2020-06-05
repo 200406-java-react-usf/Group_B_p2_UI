@@ -13,9 +13,11 @@ import RegisterComponent from './components/register-component/RegisterContainer
 import ItemDetailsComponent from './components/item-details-component/ItemDetailsContainer';
 import BrowseItemsComponent from './components/browse-items-component/BrowseItemsContainer';
 // import CartComponent from './components/cart-component/CartContainer';
-// import AdminDashComponent from './components/admin-dash-component/AdminDashContainer';
-
+import AdminDashComponent from './components/admin-dash-component/AdminDashContainer';
+import NewItemComponent from './components/';
+import AdminDashComponent from './components/admin-dash-component/AdminDashContainer';
 import NavbarComponent from './components/navbar-component/NavbarContainer';
+import { NewInventory } from './models/NewInventory';
 
 
 function App() {
@@ -39,8 +41,10 @@ function App() {
 
             {/*
             <Route path='/home' render={() => <HomeComponent />} /> 
-            <Route path='/cart' render={() => <CartComponent />} />
-            <Route path='/admin-dashboard' render={() => <AdminDashComponent />} /> */}
+            <Route path='/cart' render={() => <CartComponent />} />*/}
+            <Route path='/admin-dashboard' render={() => <AdminDashComponent />} />
+            <Route path={'/addItem'} render={() => <NewItemComponent />} /> 
+            <Route path={'/invoices'} render={() => <InvoiceComponent />} />
 
           </Switch>
         </Router>
