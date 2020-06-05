@@ -1,13 +1,10 @@
 import React, { useEffect, useState, ChangeEvent } from 'react';
 import {Inventory} from '../../models/Inventory';
 import { Container, Card, CardActionArea, CardMedia, Typography, CardContent, CardActions, Button, makeStyles, Grid, Theme, createStyles, Paper, List, Slider, Checkbox, FormControlLabel, ListItem, ListItemText, Divider, RadioGroup, Radio } from '@material-ui/core';
-import { Link, Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { listenerCount } from 'cluster';
-import ItemDetailsComponent from '../item-details-component/ItemDetailsContainer'
-import { browseAction } from '../../actions/browse-items-actions';
 
 interface IBrowseProps {
-    browseAction: ((item: Inventory) => void)
 }
 
 const useStyles = makeStyles((theme:Theme) =>
@@ -65,8 +62,8 @@ let BrowseItemsComponent = (props: IBrowseProps) => {
             filter = filter.filter(val => val != event.target.value);
             setCurrentFilters(filter);
         }
+        console.log(currentFilters) 
     }
-
 
 
     useEffect(() => { 
@@ -115,7 +112,6 @@ let BrowseItemsComponent = (props: IBrowseProps) => {
             for (let item of response){
                 if((currentFilters.length === 0 || currentFilters.includes(item.category)) && item.cost > priceValue[0] && item.cost < priceValue[1]){
                     itemCards.push(
-                        <>
                         <Grid item spacing={2}>
                             <Card className={classes.root} raised={true}>
                                 <CardActionArea>
@@ -125,10 +121,7 @@ let BrowseItemsComponent = (props: IBrowseProps) => {
                                     title={item.item_name}
                                     />
                                     <CardContent>
-                                    <Link onClick={(event) => {
-                                        props.browseAction(item)
-                                    }}
-                                        to={'/item-details'} color="primary">
+                                    <Link to={`/item-details-${item.item_id}`} color="primary">
                                         <Typography gutterBottom variant="h5" component="h2">
                                             {item.item_name}
                                         </Typography>
@@ -138,9 +131,13 @@ let BrowseItemsComponent = (props: IBrowseProps) => {
                                     </Typography>
                                     </CardContent>
                                 </CardActionArea>
+                                <CardActions>
+                                    <Link to={`/item-details-${item.item_id}`} color="primary">
+                                        Details
+                                    </Link>
+                                </CardActions>
                             </Card>
                         </Grid>
-                        </>
                         
                     )
                 }
@@ -154,9 +151,9 @@ let BrowseItemsComponent = (props: IBrowseProps) => {
 
 
     
+    //@ts-ignore
 
     return (
-        
         <>
         <div style={{marginTop:5, marginLeft:10}}>
             <Grid container spacing={2} justify="space-around">
