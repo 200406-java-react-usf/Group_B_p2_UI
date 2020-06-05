@@ -10,7 +10,7 @@ const mapStateToProps = (state: IState) => {
 }
 
 const mapDispatchToProps = {
-    
+    detailsAction
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ItemDetailsComponent);
