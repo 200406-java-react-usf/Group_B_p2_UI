@@ -1,6 +1,6 @@
 import { AnyAction } from "redux";
 import { IBrowseItemsState } from ".";
-import {thisItemActionTypes} from "../actions/browse-items"
+import {thisItemActionTypes} from "../actions/browse-items-actions"
 import { Inventory } from "../models/Inventory";
 
 const initialState: IBrowseItemsState ={

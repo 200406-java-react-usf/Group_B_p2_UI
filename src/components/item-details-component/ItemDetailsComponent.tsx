@@ -26,7 +26,8 @@ const useStyles = makeStyles({
 });
 
 let ItemDetailsComponent = (props: IItemDetailsProps) =>{
-	const classes = useStyles();
+    const classes = useStyles();
+    const[quantity, setQuantity]= useState<number>(1)
 
 	//let item = new Inventory(1, "item 1", "a meme about gamers and a wholesome relationship with their mothers that they never thought was possible", 1.00, "other", "https://project-two-meme-store-pictures.s3.us-east-2.amazonaws.com/gaming-meme/Funny-Gaming-Memes-29.jpg")
 	
@@ -46,17 +47,27 @@ let ItemDetailsComponent = (props: IItemDetailsProps) =>{
                 <Grid item xs={6}>
                     <List>
                         <ListItem>
-                            <ListItemText primary={props.thisItem.item_name}/>
+                            <Typography gutterBottom variant="h5" component="h2" color="primary">
+                                            {props.thisItem.item_name}
+                            </Typography>
                         </ListItem>
                         <Divider />
                         <ListItem>
-                            <ListItemText primary={"Price: $" + props.thisItem.cost.toFixed(2)}/>
+                            <Typography>Price: </Typography>
+                            <span> </span>
+                            <Typography variant="h6" color="secondary">
+                                            {" $" + props.thisItem.cost.toFixed(2)}
+                            </Typography>
+                            
                         </ListItem>
                         <ListItem>
-                            <ListItemText primary={"category: " + props.thisItem.category}/>
+                            <Typography >Category:</Typography>
+                            <Button disabled={true}>{props.thisItem.category}</Button>
                         </ListItem>
                         <ListItem>
-                            <ListItemText primary={props.thisItem.details}/>
+                            <Typography >Description: </Typography>
+                            <span> </span>
+                            <Typography color="primary">{props.thisItem.details}</Typography>
                         </ListItem>
                         <ListItem>
                         <div style={{paddingRight:100}}>
@@ -71,6 +82,8 @@ let ItemDetailsComponent = (props: IItemDetailsProps) =>{
                             variant="outlined"   
                         />
                         </div>
+                        {}
+
                         </ListItem>
                         <ListItem>
                         <Button variant="contained" color="secondary">

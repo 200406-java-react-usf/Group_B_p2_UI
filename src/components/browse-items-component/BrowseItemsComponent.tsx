@@ -4,7 +4,7 @@ import { Container, Card, CardActionArea, CardMedia, Typography, CardContent, Ca
 import { Link, Route } from 'react-router-dom';
 import { listenerCount } from 'cluster';
 import ItemDetailsComponent from '../item-details-component/ItemDetailsContainer'
-import { browseAction } from '../../actions/browse-items';
+import { browseAction } from '../../actions/browse-items-actions';
 
 interface IBrowseProps {
     browseAction: ((item: Inventory) => void)
