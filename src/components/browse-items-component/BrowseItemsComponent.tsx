@@ -65,7 +65,6 @@ let BrowseItemsComponent = (props: IBrowseProps) => {
             filter = filter.filter(val => val != event.target.value);
             setCurrentFilters(filter);
         }
-        console.log(currentFilters) 
     }
 
 

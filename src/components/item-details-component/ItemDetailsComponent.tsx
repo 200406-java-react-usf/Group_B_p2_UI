@@ -8,7 +8,7 @@ import { detailsAction } from '../../actions/item-details-actions';
 
 export interface IItemDetailsProps{
     thisItem: Inventory
-    cart: Inventory[]
+    cart: Array<Inventory>
     detailsAction: ((cart: Inventory[]) => void)
 }
 
@@ -38,14 +38,22 @@ let ItemDetailsComponent = (props: IItemDetailsProps) =>{
     }
     
     const addToCart = () => {
+
         let array: Array<Inventory> = [...props.cart]
+
+
         for(let i = 0; i < quantity; i++) {
             array.push(props.thisItem);
         }
+
         props.detailsAction(array);
     }
 
 	return (
+        <>
+        {!props.thisItem?
+        <Redirect to="/browse"/>
+        : <></>}
 		<div style={{padding:"2%"}}>
             <Breadcrumbs aria-label="breadcrumb">
                 <Link color="inherit" href="/browse">
@@ -111,6 +119,7 @@ let ItemDetailsComponent = (props: IItemDetailsProps) =>{
             </Paper>
 
         </div>
+        </>
     );
 }
 

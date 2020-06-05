@@ -5,7 +5,7 @@ import { addItemsActionTypes } from "../actions/item-details-actions";
 
 const initialState: IItemDetailsState ={
     //@ts-ignore
-    thisItem: ([] as Inventory[])
+    cartItems: ([] as Array<Inventory>)
 }
 
 
@@ -14,7 +14,7 @@ export const itemDetailsReducer = (state: IItemDetailsState = initialState, acti
         case addItemsActionTypes.SUCCESSFUL_ADD_ITEM:
             return {
                 ...state,
-                thisItem: action.payload
+                cartItems: action.payload
             }
 
         case addItemsActionTypes.BAD_REQUEST:

@@ -83,7 +83,7 @@ function NavbarComponent (props: INavbarProps) {
                             </ListItemText >
                             <ListItemText inset>
                                     <Link to="/cart" className={classes.logout} onClick={userLogout}>
-                                    <Badge color ="secondary" badgeContent={4}>
+                                    <Badge color ="secondary" badgeContent={props.cart.length}>
                                          <ShoppingCartIcon /> 
                                     </Badge>
                                     </Link>

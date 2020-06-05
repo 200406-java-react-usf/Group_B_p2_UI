@@ -7,7 +7,7 @@ export const addItemsActionTypes = {
     INTERNAL_SERVER_ERROR: 'MEME_INTERNAL_SERVER_ERROR'
 }
 
-export const detailsAction = (cartItems: Inventory[]) => async (dispatch: Dispatch) => {
+export const detailsAction = (cartItems: Array<Inventory>) => async (dispatch: Dispatch) => {
     
     try {
         

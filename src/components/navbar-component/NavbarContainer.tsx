@@ -6,7 +6,7 @@ import { logoutAction } from "../../actions/logout-action"
 const mapStateToProps = (state: IState) => {
     return {
         authUser: state.login.authUser,
-        cart: state.addItemToCart.cartItems,
+        cart: state.setCartItems.cartItems,
         errorMessage: state.logout.errorMessage
         
     }
