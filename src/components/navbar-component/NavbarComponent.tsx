@@ -8,7 +8,7 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 interface INavbarProps {
     authUser: User;
     errorMessage: string;
-    itemCount: number;  //will update based on actions elsewhere
+    itemCount: number;
     logoutAction: () => void;
 }
 //Navbar Style Set

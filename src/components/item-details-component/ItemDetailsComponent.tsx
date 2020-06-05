@@ -3,10 +3,12 @@ import { Typography, FormControl, InputLabel, Input, Button, makeStyles, Breadcr
 import { Redirect } from 'react-router';
 import {Alert} from '@material-ui/lab';
 import { Inventory } from '../../models/Inventory';
+import { detailsAction } from '../../actions/item-details-actions';
 
 
 export interface IItemDetailsProps{
-	thisItem: Inventory
+    thisItem: Inventory
+    detailsAction: ((cart: Inventory[]) => void)
 }
 
 const useStyles = makeStyles({
@@ -27,10 +29,21 @@ const useStyles = makeStyles({
 
 let ItemDetailsComponent = (props: IItemDetailsProps) =>{
     const classes = useStyles();
-    const[quantity, setQuantity]= useState<number>(1)
+    const[quantity, setQuantity]= useState<number>(1);
 
 	//let item = new Inventory(1, "item 1", "a meme about gamers and a wholesome relationship with their mothers that they never thought was possible", 1.00, "other", "https://project-two-meme-store-pictures.s3.us-east-2.amazonaws.com/gaming-meme/Funny-Gaming-Memes-29.jpg")
-	
+    const changeQuantity = (event: any) => {
+        setQuantity(event.target.value);
+    }
+    
+    const addToCart = () => {
+        let array: Array<Inventory> = []
+        for(let i = 0; i < quantity; i++) {
+            array.push(props.thisItem);
+        }
+        props.detailsAction(array);
+    }
+
 	return (
 		<div style={{padding:"2%"}}>
             <Breadcrumbs aria-label="breadcrumb">
@@ -56,7 +69,7 @@ let ItemDetailsComponent = (props: IItemDetailsProps) =>{
                             <Typography>Price: </Typography>
                             <span> </span>
                             <Typography variant="h6" color="secondary">
-                                            {" $" + props.thisItem.cost.toFixed(2)}
+                                {" $" + props.thisItem.cost.toFixed(2)}
                             </Typography>
                             
                         </ListItem>
@@ -72,6 +85,7 @@ let ItemDetailsComponent = (props: IItemDetailsProps) =>{
                         <ListItem>
                         <div style={{paddingRight:100}}>
                         <TextField
+                            onChange={changeQuantity}
                             defaultValue={1}
                             id="outlined-number"
                             label="Quantity"
@@ -86,7 +100,7 @@ let ItemDetailsComponent = (props: IItemDetailsProps) =>{
 
                         </ListItem>
                         <ListItem>
-                        <Button variant="contained" color="secondary">
+                        <Button variant="contained" color="secondary" onClick={addToCart}>
                         Add to Cart
                         </Button>  
                         </ListItem>
