@@ -5,7 +5,7 @@ import { Alert } from '@material-ui/lab';
 import { makeStyles, Select, MenuItem, Grid, Typography, Button } from '@material-ui/core';
 import { Redirect } from 'react-router';
 import { Inventory } from '../../models/Inventory'
-import { deleteInventory, newInventory, getAllInventory } from '../../remote/inventory-service';
+import { deleteInventory, newInventory, getAllInventory, updateInventory } from '../../remote/inventory-service';
 import { Link } from 'react-router-dom';
 
 export interface IAdminDashProps {
@@ -37,14 +37,14 @@ const ReimbComponent = (props: IAdminDashProps) => {
         setTableData(result);
     }
     
-    // const updateRow = async (updatedItem: Inventory) => {
-    //     try {
-    //         await updateInventor(updatedItem);
-    //         await getTableData();
-    //     } catch (e) {
-    //         setErrorMessage(e.response.data.reason);
-    //     }
-    // }
+    const updateRow = async (updatedItem: Inventory) => {
+        try {
+            await updateInventory(updatedItem.item_name, updatedItem.details, updatedItem.cost, updatedItem.category, updatedItem.item_image);
+            await getTableData();
+        } catch (e) {
+            setErrorMessage(e.response.data.reason);
+        }
+    }
     
     const deleteRow = async (itemToBeDeleted: Inventory) =>{
         try{
@@ -127,11 +127,11 @@ const ReimbComponent = (props: IAdminDashProps) => {
                 //     addNewInventory(newData);
                 //     resolve();
                 // }),
-                // onRowUpdate: (newData, oldData) =>
-                // new Promise((resolve,reject) =>{
-                //     resolve();
-                //     updateRow(newData);
-                // }),
+                onRowUpdate: (newData, oldData) =>
+                new Promise((resolve,reject) =>{
+                    resolve();
+                    updateRow(newData);
+                }),
                 onRowDelete: oldData =>
                 new Promise((resolve, reject) =>{
                     console.log(oldData.item_id)
