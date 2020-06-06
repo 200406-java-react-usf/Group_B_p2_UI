@@ -53,8 +53,8 @@ export interface IInventoryState {
 
 }
 
-export interface IInvoiceState {
-    invoice: Invoice;
+export interface IInvoicesState {
+    authUser: User;
 }
 
 
