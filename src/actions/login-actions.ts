@@ -3,6 +3,7 @@ import { User } from "../models/User";
 
 export const loginActionTypes = {
     SUCCESSFUL_LOGIN: 'MEME_SUCCESSFUL_LOGIN',
+    //SUCCESSFUL_LOGIN_GOOGLE: 'MEME_SUCCESSFUL_LOGIN_GOOLE',
     BAD_REQUEST: 'MEME_BAD_REQUEST',
     INVALID_CREDENTIALS: 'MEME_INVALID_CREDENTIALS',
     AUTHORIZATION_ERROR: 'MEME_AUTHORIZATION_ERROR',
@@ -15,10 +16,16 @@ export const loginAction = (username: string, password: string) => async (dispat
         //Missing Authenticate remote to connect to API
         //let authUser = await authenticate(username, password);
         let authUser = User;
+        // let gUser = User;
         dispatch({
             type: loginActionTypes.SUCCESSFUL_LOGIN,
             payload: authUser
         });
+
+        // dispatch({
+        //     type: loginActionTypes.SUCCESSFUL_LOGIN_GOOGLE,
+        //     payload: gUser
+        // });
 
     } catch (e) {
 
