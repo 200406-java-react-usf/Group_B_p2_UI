@@ -2,11 +2,13 @@ import { AnyAction } from "redux"
 import { logoutActionTypes } from "../actions/logout-action"
 import { INavbarState } from "."
 import { User } from "../models/User"
+import { Inventory } from "../models/Inventory"
 
 
 const initialState: INavbarState = {
     // @ts-ignore
     authUser: (null as User), 
+    cart: ({} as Array<Inventory>),
     errorMessage: ''
 }
 

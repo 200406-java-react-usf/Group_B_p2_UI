@@ -77,29 +77,29 @@ function LoginComponent(props: ILoginProps) {
         console.error(error);
     }
  
-    let responseGoogle = async (googleUser: gapi.auth2.GoogleUser) => {
-        const id_token = googleUser.getAuthResponse(true).id_token
-        const googleId = googleUser.getId()
+    // let responseGoogle = async (googleUser: gapi.auth2.GoogleUser) => {
+    //     const id_token = googleUser.getAuthResponse(true).id_token
+    //     const googleId = googleUser.getId()
         
-        const user = googleUser.getBasicProfile();
-        //getName will equal getGivenName if no familyName is provided
-        console.log(user.getId());
-        console.log(user.getGivenName());
-        console.log(user.getFamilyName());
-        console.log(user.getName());
-        console.log(user.getEmail());
+    //     const user = googleUser.getBasicProfile();
+    //     //getName will equal getGivenName if no familyName is provided
+    //     console.log(user.getId());
+    //     console.log(user.getGivenName());
+    //     console.log(user.getFamilyName());
+    //     console.log(user.getName());
+    //     console.log(user.getEmail());
 
-        // props.gUser.username = user.getName();
-        // props.gUser.email = user.getEmail();
-        // props.gUser.first_name = user.getGivenName();
-        // props.gUser.last_name = "GoogleGuest";
-        // props.gUser.password = user.getId();
+    //     // props.gUser.username = user.getName();
+    //     // props.gUser.email = user.getEmail();
+    //     // props.gUser.first_name = user.getGivenName();
+    //     // props.gUser.last_name = "GoogleGuest";
+    //     // props.gUser.password = user.getId();
 
-        // console.log(props.gUser);
-        // console.log({ googleId })
-        // console.log({accessToken: id_token})
+    //     // console.log(props.gUser);
+    //     // console.log({ googleId })
+    //     // console.log({accessToken: id_token})
 
-    }
+    // }
 
     return (
         props.authUser ?
@@ -132,12 +132,12 @@ function LoginComponent(props: ILoginProps) {
                     <Divider variant="middle" />
                     <br/><br/>
                     <div className={classes.centerButton}>
-                    <GoogleLoginButton
+                    {/* <GoogleLoginButton
                         responseHandler={responseGoogle}
                         clientConfig={clientConfig}
                         preLogin={preLoginTracking}
                         failureHandler={errorHandler}
-                    />
+                    /> */}
                     </div>
                     {
                         props.errorMessage 

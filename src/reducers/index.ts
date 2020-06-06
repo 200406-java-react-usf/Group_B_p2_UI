@@ -44,16 +44,17 @@ export interface INewItemState {
 }
 
 export interface INavbarState {
-    itemCount: number;
+    authUser: User;
     errorMessage: string;
+    cart: Inventory[];
 }
 
 export interface IInventoryState {
 
 }
 
-export interface IInvoiceState {
-    invoice: Invoice;
+export interface IInvoicesState {
+    authUser: User;
 }
 
 

@@ -7,7 +7,6 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { store } from './Store';
 
 // import HomeComponent from './components/home-component/HomeContainer';
-
 import LoginComponent from './components/login-component/LoginContainer';
 import RegisterComponent from './components/register-component/RegisterContainer';
 import ItemDetailsComponent from './components/item-details-component/ItemDetailsContainer';
@@ -17,13 +16,15 @@ import AdminDashComponent from './components/admin-dash-component/AdminDashConta
 
 import NavbarComponent from './components/navbar-component/NavbarContainer';
 import NewItemComponent from './components/new-item-component/NewItemContainer';
-import NewItemContainer from './components/new-item-component/NewItemContainer';
+import InvoicesComponent from './components/invoices-component/InvoicesContainer';
+
 
 
 function App() {
   return (
     <div className="App">
       <Provider store ={store}>
+        
         <Router>
           <AppBar color="primary" position="static">
             <Toolbar>
@@ -41,6 +42,7 @@ function App() {
             <Route path='/admin-dashboard' render={() => <AdminDashComponent />} /> 
             <Route path='/register' render={() => <RegisterComponent />} />
             <Route path={'/item-details'} render={() => <ItemDetailsComponent />} />
+            <Route path={'/invoices'} render={() => <InvoicesComponent />} />
 
             {/*
             <Route path='/home' render={() => <HomeComponent />} /> 
