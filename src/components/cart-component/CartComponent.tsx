@@ -2,10 +2,12 @@ import React, {useState, useEffect} from 'react';
 import { Typography, FormControl, InputLabel, Input, Button, makeStyles, Breadcrumbs, Grid, Paper, TableContainer, Table, TableHead, TableRow, TableCell, TableBody, List, ListItem, ListItemText, Divider, RadioGroup, FormControlLabel, Radio, TextField, GridListTile } from '@material-ui/core';
 import { Inventory } from '../../models/Inventory';
 import { User } from '../../models/User';
+import { Link } from 'react-router-dom';
 
 
 
 export interface ICartProps{
+    authUser: User
     cart: Array<Inventory>
     cartAction: ((items: Inventory[], user: User) => void)
 }
@@ -53,8 +55,7 @@ let CartComponent = (props: ICartProps) =>{
     } 
 
     const purchaseItems = () => {
-
-
+        props.cartAction(props.cart, props.authUser);
     }
 
     useEffect(() => {
@@ -106,7 +107,7 @@ let CartComponent = (props: ICartProps) =>{
 
 	return (
         <>
-        <Paper style={{margin:"2%"}}>
+        <div style={{margin:"2%"}}>
         <Paper square={true}>
             <Grid container>
                 <Grid item xs={3}>
@@ -124,27 +125,28 @@ let CartComponent = (props: ICartProps) =>{
         </Paper>
         {items.length != 0?
         items:
-        "Cart is empty"
+        <>
+        <p>There are no items in your cart</p>
+        <p><span>To browse catalog click </span><span><Link to="/browse">here</Link></span></p>
+        </>
         }
         <Paper square={true}>
             <Grid container>
                 <Grid item xs ={10}>
                 </Grid>
                 <Grid item xs ={2}>
-                    <ListItemText>{`Total: $${total.toFixed(2)}`}</ListItemText>
+                    <ListItemText style={{marginTop:"5%", marginBottom:"5%"}}>{`Total: $${total.toFixed(2)}`}</ListItemText>
                 </Grid>
             </Grid>
         </Paper>
-        <Paper square={true}>
             <Grid container>
                 <Grid item xs ={10}>
                 </Grid>
                 <Grid item xs ={2}>
-                    <Button onClick={purchaseItems} color="primary">Purchase items</Button>
+                    <Button style={{marginTop:"5%", marginBottom:"5%"}} onClick={purchaseItems} color="primary" variant="contained">Purchase items</Button>
                 </Grid>
             </Grid>
-        </Paper>
-        </Paper>
+        </div>
         </>
     );
 }

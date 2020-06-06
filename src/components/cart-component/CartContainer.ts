@@ -6,6 +6,7 @@ import {cartAction} from "../../actions/cart-actions"
 
 const mapStateToProps = (state: IState) => {
     return {
+        authUser: state.login.authUser,
         cart: state.setCartItems.cartItems
     }
 }
