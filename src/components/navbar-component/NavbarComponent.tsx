@@ -66,7 +66,7 @@ function NavbarComponent (props: INavbarProps) {
                                 </Typography>
                             </ListItemText>
                             
-                            <ListItemText inset>
+                             <ListItemText inset>
                                 <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
                                     Admin Control Panel
                                 </Button>
@@ -77,7 +77,8 @@ function NavbarComponent (props: INavbarProps) {
                                     open={Boolean(anchorEl)}
                                 >
                                             <MenuItem disabled>Admin Control Panel</MenuItem>
-                                            <MenuItem onClick={handleClose}><Link to="/items">View Inventory</Link></MenuItem>
+                                            <MenuItem onClick={handleClose}><Link to="/admin-dashboard">Dashboard</Link></MenuItem>
+                                            <MenuItem onClick={handleClose}><Link to="/invoices">View Invoices</Link></MenuItem>
                                             <MenuItem onClick={handleClose}><Link to="/addItem">Add Item</Link></MenuItem>
                                 </Menu>      
                             </ListItemText >
@@ -104,7 +105,7 @@ function NavbarComponent (props: INavbarProps) {
                                 <Typography color="secondary" variant="h6">
                                     <Link to="/login" className={classes.logout} onClick={userLogout}>Logout</Link>
                                 </Typography>
-                            </ListItemText>
+                            </ListItemText> 
                             
                             </> 
                         :

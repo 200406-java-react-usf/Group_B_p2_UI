@@ -1,6 +1,6 @@
 import {NewUser} from '../models/NewUser';
 import {Dispatch} from 'redux';
-// import {register} from '../remote/user-service';
+import {register} from '../remote/user-service';
 import {loginActionTypes} from './login-actions';
 
 export const registerActionTypes = {
@@ -11,8 +11,8 @@ export const registerActionTypes = {
 
 export const registerAction = (newUser: NewUser) => async (dispatch: Dispatch) =>{
 	try {
-		// let registerUser = await register(newUser);
-		let registerUser = newUser;
+		let registerUser = await register(newUser);
+		// let registerUser = newUser;
 		dispatch({
 			type: registerActionTypes.SUCCESSFUL_REGISTRATION,
 			payload: registerUser

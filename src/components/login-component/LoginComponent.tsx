@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Alert } from '@material-ui/lab';
+import { GoogleLoginButton } from 'ts-react-google-login-component';
+
 import { loginAction } from '../../actions/login-actions'
 
 import { 
@@ -8,7 +10,8 @@ import {
     InputLabel, 
     Input, 
     Button, 
-    makeStyles 
+    makeStyles, 
+    Divider
 } from '@material-ui/core';
 
 import { Redirect } from 'react-router';
@@ -16,6 +19,7 @@ import { User } from '../../models/User';
 
 interface ILoginProps {
     authUser: User;
+    //gUser: User;
     errorMessage: string;
     loginAction: (username: string, password: string) => void;
 }
@@ -30,12 +34,20 @@ const useStyles = makeStyles({
     },
     loginForm: {
         width: "50%"
+    },
+    centerButton:
+    {
+        display: "flex",
+        justifyContent: "center"
     }
 });
 
 function LoginComponent(props: ILoginProps) {
 
     const classes = useStyles();
+
+    const clientConfig = { client_id: '591571828049-u4mun2n3qqfoeit95o7rv5f45pvqsac0.apps.googleusercontent.com' }
+
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -56,6 +68,38 @@ function LoginComponent(props: ILoginProps) {
     let login = async () => {
         props.loginAction(username, password);
     }
+
+    let preLoginTracking = async () => {
+        console.log('Login with Google');
+    }
+ 
+    let errorHandler = async (error: string) => {
+        console.error(error);
+    }
+ 
+    // let responseGoogle = async (googleUser: gapi.auth2.GoogleUser) => {
+    //     const id_token = googleUser.getAuthResponse(true).id_token
+    //     const googleId = googleUser.getId()
+        
+    //     const user = googleUser.getBasicProfile();
+    //     //getName will equal getGivenName if no familyName is provided
+    //     console.log(user.getId());
+    //     console.log(user.getGivenName());
+    //     console.log(user.getFamilyName());
+    //     console.log(user.getName());
+    //     console.log(user.getEmail());
+
+    //     // props.gUser.username = user.getName();
+    //     // props.gUser.email = user.getEmail();
+    //     // props.gUser.first_name = user.getGivenName();
+    //     // props.gUser.last_name = "GoogleGuest";
+    //     // props.gUser.password = user.getId();
+
+    //     // console.log(props.gUser);
+    //     // console.log({ googleId })
+    //     // console.log({accessToken: id_token})
+
+    // }
 
     return (
         props.authUser ?
@@ -85,6 +129,16 @@ function LoginComponent(props: ILoginProps) {
                     <br/><br/>
                     <Button onClick={login} variant="contained" color="secondary" size="medium">Login</Button>
                     <br/><br/>
+                    <Divider variant="middle" />
+                    <br/><br/>
+                    <div className={classes.centerButton}>
+                    {/* <GoogleLoginButton
+                        responseHandler={responseGoogle}
+                        clientConfig={clientConfig}
+                        preLogin={preLoginTracking}
+                        failureHandler={errorHandler}
+                    /> */}
+                    </div>
                     {
                         props.errorMessage 
                             ? 

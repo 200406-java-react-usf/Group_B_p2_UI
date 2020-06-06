@@ -12,15 +12,18 @@ import RegisterComponent from './components/register-component/RegisterContainer
 import ItemDetailsComponent from './components/item-details-component/ItemDetailsContainer';
 import BrowseItemsComponent from './components/browse-items-component/BrowseItemsContainer';
 import CartComponent from './components/cart-component/CartContainer';
-// import AdminDashComponent from './components/admin-dash-component/AdminDashContainer';
-
+import AdminDashComponent from './components/admin-dash-component/AdminDashContainer';
 import NavbarComponent from './components/navbar-component/NavbarContainer';
+import NewItemComponent from './components/new-item-component/NewItemContainer';
+import InvoicesComponent from './components/invoices-component/InvoicesContainer';
+
 
 
 function App() {
   return (
     <div className="App">
       <Provider store ={store}>
+        
         <Router>
           <AppBar color="primary" position="static">
             <Toolbar>
@@ -33,15 +36,13 @@ function App() {
 
             <Route path='/login' render={() => <LoginComponent />} />
             <Route path='/browse' render={() => <BrowseItemsComponent />} />
+            <Route path='/additem' render={() => <NewItemComponent />} />
+            <Route path='/admin-dashboard' render={() => <AdminDashComponent />} /> 
             <Route path='/register' render={() => <RegisterComponent />} />
             <Route path={'/item-details'} render={() => <ItemDetailsComponent />} />
-            <Route path='/home' render={() => <HomeComponent />} />
+            <Route path={'/invoices'} render={() => <InvoicesComponent />} />
+            <Route path='/home' render={() => <HomeComponent />} /> 
             <Route path='/cart' render={() => <CartComponent />} />
-            
-            {/*
-            
-          
-            <Route path='/admin-dashboard' render={() => <AdminDashComponent />} /> */}
 
           </Switch>
         </Router>

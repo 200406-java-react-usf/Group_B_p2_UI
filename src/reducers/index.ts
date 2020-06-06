@@ -40,19 +40,21 @@ export interface IRegisterState {
 
 export interface INewItemState {
     newItem: NewInventory;
+    errorMessage:string;
 }
 
 export interface INavbarState {
-    itemCount: number;
+    authUser: User;
     errorMessage: string;
+    cart: Inventory[];
 }
 
 export interface IInventoryState {
 
 }
 
-export interface IInvoiceState {
-    invoice: Invoice;
+export interface IInvoicesState {
+    authUser: User;
 }
 
 
@@ -60,7 +62,7 @@ export interface IState {
     login: ILoginState;
     logout: INavbarState;
     register: IRegisterState;
-    // addNewItem: INewItemState;
+    addNewItem: INewItemState;
     // getAllItems: IInventoryState;
     // updateItem: IInventoryState;
     // deleteItem: IInventoryState;
@@ -76,7 +78,7 @@ export interface IState {
 export const state = combineReducers<IState>({ 
     register: registerReducer,
     logout: navbarReducer,
-    // addNewItem: newItemReducer,
+    addNewItem: newItemReducer,
     // getAllItems: inventoryReducer,
     // updateItem: inventoryReducer,
     // deleteItem: inventoryReducer,

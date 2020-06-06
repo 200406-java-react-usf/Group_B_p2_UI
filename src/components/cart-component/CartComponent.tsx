@@ -1,14 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import { Typography, FormControl, InputLabel, Input, Button, makeStyles, Breadcrumbs, Grid, Paper, TableContainer, Table, TableHead, TableRow, TableCell, TableBody, List, ListItem, ListItemText, Divider, RadioGroup, FormControlLabel, Radio, TextField, GridListTile } from '@material-ui/core';
-import { Redirect } from 'react-router';
-import {Alert} from '@material-ui/lab';
 import { Inventory } from '../../models/Inventory';
-import { detailsAction } from '../../actions/item-details-actions';
-import { Link } from 'react-router-dom';
 import { User } from '../../models/User';
-import { prependOnceListener } from 'cluster';
-import { cartAction } from '../../actions/cart-actions';
-import ItemDetailsComponent from '../item-details-component/ItemDetailsComponent';
+
 
 
 export interface ICartProps{
@@ -30,6 +24,11 @@ let CartComponent = (props: ICartProps) =>{
     let total: number = 0;
     let noRepeatCart: Inventory[] = [];
 
+    props.cart.forEach(item => {
+        !noRepeatCart.find(noRepeatItem => noRepeatItem.item_id == item.item_id)?
+        noRepeatCart.push(item):
+        noRepeatCart = noRepeatCart;
+    })
     
     const itemQuantity = (itemId: number) => {
 
@@ -44,22 +43,18 @@ let CartComponent = (props: ICartProps) =>{
         return quant;
     }
 
-    const updateQuant = (event: any) => {
-        
-    }
-
-
-    props.cart.forEach(item => {
-
-        !noRepeatCart.find(noRepeatItem => noRepeatItem.item_id == item.item_id)?
-        noRepeatCart.push(item):
-        noRepeatCart = noRepeatCart;
-    })
-
-    console.log(noRepeatCart)
-
     for(let item of noRepeatCart){
         total = total + (item.cost * itemQuantity(item.item_id));
+    }
+
+    const updateQuant = (event: any) => {
+
+        
+    } 
+
+    const purchaseItems = () => {
+
+
     }
 
     useEffect(() => {
@@ -145,7 +140,7 @@ let CartComponent = (props: ICartProps) =>{
                 <Grid item xs ={10}>
                 </Grid>
                 <Grid item xs ={2}>
-                    <Button color="primary">Purchase items</Button>
+                    <Button onClick={purchaseItems} color="primary">Purchase items</Button>
                 </Grid>
             </Grid>
         </Paper>
