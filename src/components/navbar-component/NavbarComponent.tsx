@@ -6,7 +6,7 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { Inventory } from '../../models/Inventory';
 
 //Navbar Properties passed from container
-interface INavbarProps {
+export interface INavbarProps {
     authUser: User;
     errorMessage: string;
     cart: Inventory[];
@@ -109,7 +109,7 @@ function NavbarComponent (props: INavbarProps) {
                             
                             </> 
                         :
-                        props.authUser.role_name ==='admin' ?
+                        props.authUser.role_name ==='MANAGER' ?
                         <>
                             <ListItemText inset>
                                 <Typography color="inherit" variant="h6">
