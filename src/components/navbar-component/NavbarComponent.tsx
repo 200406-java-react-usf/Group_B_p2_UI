@@ -147,11 +147,13 @@ function NavbarComponent (props: INavbarProps) {
                                 </Typography>
                             </ListItemText>
                             <ListItemText inset>
-                                <Badge color ="secondary" badgeContent={props.cart.length}>
-                                    <Link to="/cart" className={classes.logout} onClick={userLogout}>
+                                
+                                <Link to="/cart" className={classes.logout} onClick={userLogout}>
+                                    <Badge color ="secondary" badgeContent={props.cart.length}>
                                          <ShoppingCartIcon /> 
-                                    </Link>
-                                 </Badge>
+                                    </Badge>
+                                </Link>
+                                 
                             </ListItemText>
                             <ListItemText inset>
                                 <Typography color="secondary" variant="h6">

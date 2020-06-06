@@ -5,9 +5,11 @@ import {Alert} from '@material-ui/lab';
 import { Inventory } from '../../models/Inventory';
 import { detailsAction } from '../../actions/item-details-actions';
 import { Link } from 'react-router-dom';
+import { User } from '../../models/User';
 
 
 export interface IItemDetailsProps{
+    authUser: User
     thisItem: Inventory
     cart: Array<Inventory>
     detailsAction: ((cart: Inventory[]) => void)
@@ -128,10 +130,20 @@ let ItemDetailsComponent = (props: IItemDetailsProps) =>{
 
                         </ListItem>
                         <ListItem>
-                        <Button variant="contained" color="secondary" onClick={addToCart}>
-                        Add to Cart
-                        </Button>  
+                            {!props.authUser?
+                            <Button variant="contained" color="secondary" onClick={addToCart} disabled={true}>
+                            Add to Cart
+                            </Button>
+                            :
+                            <Button variant="contained" color="secondary" onClick={addToCart}>
+                            Add to Cart
+                            </Button>  
+                            }                       
                         </ListItem>
+                        {!props.authUser?
+                        <ListItem style={{color:"red"}}>Please login to create cart</ListItem>:
+                        <></>
+                        }
                     </List>
                 </Grid>
             </Grid>
