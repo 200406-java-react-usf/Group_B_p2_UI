@@ -16,7 +16,7 @@ import AdminDashComponent from './components/admin-dash-component/AdminDashConta
 
 import NavbarComponent from './components/navbar-component/NavbarContainer';
 import NewItemComponent from './components/new-item-component/NewItemContainer';
-import NewItemContainer from './components/new-item-component/NewItemContainer';
+import InvoicesComponent from './components/invoices-component/InvoicesContainer';
 
 
 function App() {
@@ -41,6 +41,7 @@ function App() {
             <Route path='/admin-dashboard' render={() => <AdminDashComponent />} /> 
             <Route path='/register' render={() => <RegisterComponent />} />
             <Route path={'/item-details'} render={() => <ItemDetailsComponent />} />
+            <Route path={'/invoices'} render={() => <InvoicesComponent />} />
 
             {/*
             <Route path='/home' render={() => <HomeComponent />} /> 
