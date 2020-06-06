@@ -97,10 +97,10 @@ const ReimbComponent = (props: IAdminDashProps) => {
                     { title: 'Category', field: 'category' , editable: 'never'},
                     { title: 'Image', field: 'item_image' , editable: 'never', render: rowData => <img src={rowData.item_image} style={{width: 50}}/>}                                  
                 ]}
-            data={[
-                { item_id: 1, item_name: 'Test Meme', details: 'Test', cost: 2.45, category: 'meme', item_image: 'https://avatars0.githubusercontent.com/u/7895451?s=460&v=4'}
-            ]}
-            //data = {items}
+            // data={[
+            //     { item_id: 1, item_name: 'Test Meme', details: 'Test', cost: 2.45, category: 'meme', item_image: 'https://avatars0.githubusercontent.com/u/7895451?s=460&v=4'}
+            // ]}
+            data = {items}
             title = "Inventory Items"
             detailPanel={rowData => {
                 return (
