@@ -78,7 +78,7 @@ function NavbarComponent (props: INavbarProps) {
                                 >
                                             <MenuItem disabled>Admin Control Panel</MenuItem>
                                             <MenuItem onClick={handleClose}><Link to="/admin-dashboard">Dashboard</Link></MenuItem>
-                                            <MenuItem onClick={handleClose}><Link to="/items">View Inventory</Link></MenuItem>
+                                            <MenuItem onClick={handleClose}><Link to="/invoices">View Invoices</Link></MenuItem>
                                             <MenuItem onClick={handleClose}><Link to="/addItem">Add Item</Link></MenuItem>
                                 </Menu>      
                             </ListItemText >
