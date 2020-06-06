@@ -1,6 +1,6 @@
 import { IState } from "../../reducers";
 import { connect } from 'react-redux';
-import  InvoiceComponent  from './InvoicesComponent';
+import  InvoicesComponent  from './InvoicesComponent';
 
 const mapStateToProps = (state: IState) =>{
    return {
@@ -12,4 +12,4 @@ const mapDispatchToProps = {
 
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(InvoiceComponent)
+export default connect(mapStateToProps, mapDispatchToProps)(InvoicesComponent)
