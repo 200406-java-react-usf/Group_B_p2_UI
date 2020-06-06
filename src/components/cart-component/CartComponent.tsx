@@ -1,46 +1,155 @@
 import React, {useState, useEffect} from 'react';
-import { Typography, FormControl, InputLabel, Input, Button, makeStyles, Breadcrumbs, Grid, Paper, TableContainer, Table, TableHead, TableRow, TableCell, TableBody, List, ListItem, ListItemText, Divider, RadioGroup, FormControlLabel, Radio, TextField } from '@material-ui/core';
+import { Typography, FormControl, InputLabel, Input, Button, makeStyles, Breadcrumbs, Grid, Paper, TableContainer, Table, TableHead, TableRow, TableCell, TableBody, List, ListItem, ListItemText, Divider, RadioGroup, FormControlLabel, Radio, TextField, GridListTile } from '@material-ui/core';
 import { Redirect } from 'react-router';
 import {Alert} from '@material-ui/lab';
 import { Inventory } from '../../models/Inventory';
 import { detailsAction } from '../../actions/item-details-actions';
 import { Link } from 'react-router-dom';
+import { User } from '../../models/User';
+import { prependOnceListener } from 'cluster';
+import { cartAction } from '../../actions/cart-actions';
+import ItemDetailsComponent from '../item-details-component/ItemDetailsComponent';
 
 
 export interface ICartProps{
     cart: Array<Inventory>
-    cartAction: ((cart: Inventory[]) => void)
+    cartAction: ((items: Inventory[], user: User) => void)
 }
 
 const useStyles = makeStyles({
-	registerContainer:{
-		display: "flex", 
-		justifyContent: "center",
-		margin: 20, 
-		marginTop: 40, 
-		padding: 20
-	},
-	registerForm: {
-		width: "50%"
-    },
-    table: {
-        minWidth: 650,
-    }
+	
 });
 
 let CartComponent = (props: ICartProps) =>{
+
+    console.log("cart", props.cart)
+
     const classes = useStyles();
 
-    useEffect(() => {
-        <Paper>
-            
-        </Paper>
+    const[items, setItems] = useState<any[]>([]);
+    let total: number = 0;
+    let noRepeatCart: Inventory[] = [];
+
+    
+    const itemQuantity = (itemId: number) => {
+
+        let quant: number = 0;
+    
+        props.cart.forEach(item => {
+            item.item_id == itemId?
+            quant++:
+            quant = quant;
+        })
+    
+        return quant;
+    }
+
+    const updateQuant = (event: any) => {
+        
+    }
+
+
+    props.cart.forEach(item => {
+
+        !noRepeatCart.find(noRepeatItem => noRepeatItem.item_id == item.item_id)?
+        noRepeatCart.push(item):
+        noRepeatCart = noRepeatCart;
     })
+
+    console.log(noRepeatCart)
+
+    for(let item of noRepeatCart){
+        total = total + (item.cost * itemQuantity(item.item_id));
+    }
+
+    useEffect(() => {
+
+        let itemCards: any[] = [];
+
+        for(let item of noRepeatCart){
+            itemCards.push(
+                <>
+                <Paper square={true}>
+                    <Grid container>
+                        <Grid item xs={3}>
+                            <img src={item.item_image} style={{height:125, margin:"5%"}} />
+                        </Grid>
+                        <Grid item xs ={2}>
+                            <ListItemText style={{marginTop:"25%", marginBottom:"25%"}}>{`${item.item_name}`}</ListItemText>
+                        </Grid>
+                        <Grid item xs ={2}>
+                            <ListItemText style={{marginTop:"25%", marginBottom:"25%"}}>{`$${item.cost}`}</ListItemText>
+                        </Grid>
+                        <Grid item xs ={2}>
+                            <ListItemText style={{marginTop:"25%", marginBottom:"25%"}}>
+                            <TextField
+                            defaultValue={itemQuantity(item.item_id)}
+                            onChange={updateQuant}
+                            id="outlined-number"
+                            type="number"
+                            size="small"
+                            InputLabelProps={{
+                                shrink: true,
+                                margin: "dense"
+                            }}
+                            variant="outlined"   
+                        />
+                            </ListItemText>
+                        </Grid>
+                        <Grid item xs={1}>
+                        </Grid>
+                        <Grid item xs={2}>
+                            <Button style={{marginTop:"25%", marginBottom:"25%"}} color="secondary">Remove item</Button>
+                        </Grid>
+                    </Grid>
+                </Paper>
+                </>
+            )
+        }
+        setItems(itemCards);
+    }, [props.cart])
+
 	return (
         <>
-        <List>
-            <ListItem></ListItem>
-        </List>
+        <Paper style={{margin:"2%"}}>
+        <Paper square={true}>
+            <Grid container>
+                <Grid item xs={3}>
+                </Grid>
+                <Grid item xs ={2}>
+                    <ListItemText>{`Item`}</ListItemText>
+                </Grid>
+                <Grid item xs ={2}>
+                    <ListItemText>{`Price`}</ListItemText>
+                </Grid>
+                <Grid item xs ={2}>
+                    <ListItemText>{`Quantity`}</ListItemText>
+                </Grid>
+            </Grid>
+        </Paper>
+        {items.length != 0?
+        items:
+        "Cart is empty"
+        }
+        <Paper square={true}>
+            <Grid container>
+                <Grid item xs ={10}>
+                </Grid>
+                <Grid item xs ={2}>
+                    <ListItemText>{`Total: $${total.toFixed(2)}`}</ListItemText>
+                </Grid>
+            </Grid>
+        </Paper>
+        <Paper square={true}>
+            <Grid container>
+                <Grid item xs ={10}>
+                </Grid>
+                <Grid item xs ={2}>
+                    <Button color="primary">Purchase items</Button>
+                </Grid>
+            </Grid>
+        </Paper>
+        </Paper>
         </>
     );
 }

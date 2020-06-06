@@ -25,7 +25,7 @@ export interface IItemDetailsState {
 }
 
 export interface ICartState {
-    cart: Array<Inventory>;
+
 }
 
 export interface IBrowseItemsState {
