@@ -18,6 +18,14 @@ import BrowseItemsComponent from './components/browse-items-component/BrowseItem
 import NavbarComponent from './components/navbar-component/NavbarContainer';
 
 
+const theme = createMuiTheme({
+
+  palette: {
+       primary: '#00bcd4',
+       secondary: '#ff4081'
+     }
+   });
+   
 function App() {
   return (
     <div className="App">
