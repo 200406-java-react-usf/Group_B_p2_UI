@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { Typography, FormControl, InputLabel, Input, Button, makeStyles, Breadcrumbs, Grid, Paper, TableContainer, Table, TableHead, TableRow, TableCell, TableBody, List, ListItem, ListItemText, Divider, RadioGroup, FormControlLabel, Radio, TextField, GridListTile } from '@material-ui/core';
+import { Typography, FormControl, InputLabel, Input, Button, makeStyles, Breadcrumbs, Grid, Paper, TableContainer, Table, TableHead, TableRow, TableCell, TableBody, List, ListItem, ListItemText, Divider, RadioGroup, FormControlLabel, Radio, TextField, GridListTile, Modal, createStyles, Theme } from '@material-ui/core';
 import { Inventory } from '../../models/Inventory';
 import { User } from '../../models/User';
 import { Link } from 'react-router-dom';
@@ -10,11 +10,20 @@ export interface ICartProps{
     authUser: User
     cart: Array<Inventory>
     cartAction: ((items: Inventory[], user: User) => void)
+    detailsAction: ((cart: Inventory[]) => void)
 }
 
-const useStyles = makeStyles({
-	
-});
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    paper: {
+      position: 'absolute',
+      width: 400,
+      backgroundColor: theme.palette.background.paper,
+      boxShadow: theme.shadows[5],
+      padding: theme.spacing(2, 4, 3),
+    },
+  }),
+);
 
 let CartComponent = (props: ICartProps) =>{
 
@@ -23,6 +32,7 @@ let CartComponent = (props: ICartProps) =>{
     const classes = useStyles();
 
     const[items, setItems] = useState<any[]>([]);
+    const [open, setOpen] = React.useState(false);
     let total: number = 0;
     let noRepeatCart: Inventory[] = [];
 
@@ -48,15 +58,30 @@ let CartComponent = (props: ICartProps) =>{
     for(let item of noRepeatCart){
         total = total + (item.cost * itemQuantity(item.item_id));
     }
+    
+    const handleOpen = () => {
+        setOpen(true);
+    };
+    
+    const handleClose = () => {
+        setOpen(false);
+    };
 
-    const updateQuant = (event: any) => {
-
-        
-    } 
+    const body = (
+        <div style={{top: "50%", left: "50%", transform: "translate(-50%, -50%)"}} className={classes.paper}>
+          <h2 id="simple-modal-title">Purchase was a success!</h2>
+          <p id="simple-modal-description">
+            Thank you
+          </p>
+          <Button onClick={handleClose} color="secondary">No Problem!</Button>
+        </div>
+      );
 
     const purchaseItems = () => {
         props.cartAction(props.cart, props.authUser);
+        handleOpen();
     }
+
 
     useEffect(() => {
 
@@ -80,7 +105,15 @@ let CartComponent = (props: ICartProps) =>{
                             <ListItemText style={{marginTop:"25%", marginBottom:"25%"}}>
                             <TextField
                             defaultValue={itemQuantity(item.item_id)}
-                            onChange={updateQuant}
+                            onChange={(event: any) => {
+                                let tempCart = props.cart;
+                                tempCart = tempCart.filter(tempItem => tempItem.item_id != item.item_id)
+
+                                for(let i=0; i < event.target.value; i++){
+                                    tempCart.push(item)
+                                }
+                                props.detailsAction(tempCart)
+                            }}
                             id="outlined-number"
                             type="number"
                             size="small"
@@ -95,7 +128,12 @@ let CartComponent = (props: ICartProps) =>{
                         <Grid item xs={1}>
                         </Grid>
                         <Grid item xs={2}>
-                            <Button style={{marginTop:"25%", marginBottom:"25%"}} color="secondary">Remove item</Button>
+                            <Button onClick={() => {
+                                let tempCart = props.cart;
+                                tempCart = tempCart.filter(tempItem => tempItem.item_id != item.item_id)
+                                props.detailsAction(tempCart)
+                                }}
+                                style={{marginTop:"25%", marginBottom:"25%"}} color="secondary">Remove item</Button>
                         </Grid>
                     </Grid>
                 </Paper>
@@ -147,6 +185,14 @@ let CartComponent = (props: ICartProps) =>{
                 </Grid>
             </Grid>
         </div>
+        <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="simple-modal-title"
+            aria-describedby="simple-modal-description"
+        >
+        {body}
+        </Modal>
         </>
     );
 }

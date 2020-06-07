@@ -3,6 +3,8 @@ import {Dispatch} from 'redux';
 import { Inventory } from '../models/Inventory';
 import { User } from '../models/User';
 import { newInvoice } from '../remote/invoices-service';
+import {detailsAction, addItemsActionTypes} from './item-details-actions';
+
 
 export const cartActionTypes = {
 	SUCCESSFUL_INVOICE_CREATED: 'MEME_STORE_SUCCESSFUL_INVOICE_CREATED',
@@ -26,6 +28,11 @@ export const cartAction = (items: Inventory[], user: User) => async (dispatch: D
 			type: cartActionTypes.SUCCESSFUL_INVOICE_CREATED,
 			payload: completedInvoice
 		});
+
+		dispatch({
+			type: addItemsActionTypes.SUCCESSFUL_ADD_ITEM,
+			payload: []
+		})
 
 	}catch(e){
 		let status = e.response.data.statusCode;

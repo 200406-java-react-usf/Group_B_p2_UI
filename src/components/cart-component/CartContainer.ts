@@ -2,6 +2,7 @@ import { IState } from "../../reducers";
 import { connect } from "react-redux";
 import CartComponent from "./CartComponent";
 import {cartAction} from "../../actions/cart-actions"
+import {detailsAction} from "../../actions/item-details-actions"
 
 
 const mapStateToProps = (state: IState) => {
@@ -12,7 +13,8 @@ const mapStateToProps = (state: IState) => {
 }
 
 const mapDispatchToProps = {
-    cartAction
+    cartAction,
+    detailsAction
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CartComponent);
