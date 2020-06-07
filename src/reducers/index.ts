@@ -21,21 +21,21 @@ export interface ILoginState {
 }
 
 export interface IItemDetailsState {
-    
+    cartItems: Array<Inventory>;
 }
 
 export interface ICartState {
-    cart: Array<Inventory>;
+
 }
 
 export interface IBrowseItemsState {
-    inventory: Array<Inventory>;
-    thisItemId: number;
+    thisItem: Inventory;
 }
 
 export interface IRegisterState {
     newUser: NewUser;
-    errorMessage: string;
+    errorMessage:string;
+
 }
 
 export interface INewItemState {
@@ -43,7 +43,7 @@ export interface INewItemState {
 }
 
 export interface INavbarState {
-    itemCount: number;
+    cart: Inventory[];
     errorMessage: string;
 }
 
@@ -60,32 +60,31 @@ export interface IState {
     login: ILoginState;
     logout: INavbarState;
     register: IRegisterState;
-    // addNewItem: INewItemState;
+    addNewItem: INewItemState;
     // getAllItems: IInventoryState;
     // updateItem: IInventoryState;
     // deleteItem: IInventoryState;
-    // addItemToCart: IItemDetailsState;
+    setCartItems: IItemDetailsState;
     // deleteItemFromCart: ICartState;
     // updateQuantity: ICartState;
     // newInvoice: ICartState;
     //getInventory: IBrowseItemsState; 
     // getItemDetails:  IItemDetailsState;
-    //setThisItem: IBrowseItemsState;
+    setThisItem: IBrowseItemsState;
 }
 
 export const state = combineReducers<IState>({ 
     register: registerReducer,
     logout: navbarReducer,
-    // addNewItem: newItemReducer,
+    addNewItem: newItemReducer,
     // getAllItems: inventoryReducer,
     // updateItem: inventoryReducer,
     // deleteItem: inventoryReducer,
-    // addItemToCart: itemDetailsReducer,
+    setCartItems: itemDetailsReducer,
     // deleteItemFromCart: cartReducer,
     // updateQuantity: cartReducer,
     // newInvoice: cartReducer,
     // getInventory: browseItemsReducer,
-    // getItemDetails: itemDetailsReducer,
-    //setThisItem: browseItemsReducer,
+    setThisItem: browseItemsReducer,
     login: loginReducer
 });

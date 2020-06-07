@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { Alert } from '@material-ui/lab';
+import { GoogleLoginButton } from 'ts-react-google-login-component';
+import { GoogleLogout } from 'react-google-login';
+
 import { loginAction } from '../../actions/login-actions'
 
 import { 
@@ -8,16 +11,20 @@ import {
     InputLabel, 
     Input, 
     Button, 
-    makeStyles 
+    makeStyles, 
+    Divider,
+    Paper
 } from '@material-ui/core';
 
 import { Redirect } from 'react-router';
 import { User } from '../../models/User';
+import { NewUser } from '../../models/NewUser';
 
 interface ILoginProps {
     authUser: User;
     errorMessage: string;
     loginAction: (username: string, password: string) => void;
+    registerAction: (user: NewUser) => void;
 }
 
 const useStyles = makeStyles({
@@ -30,12 +37,19 @@ const useStyles = makeStyles({
     },
     loginForm: {
         width: "50%"
+    },
+    centerButton:
+    {
+        display: "flex",
+        justifyContent: "center"
     }
 });
 
 function LoginComponent(props: ILoginProps) {
 
     const classes = useStyles();
+
+    const clientConfig = { client_id: '591571828049-u4mun2n3qqfoeit95o7rv5f45pvqsac0.apps.googleusercontent.com' }
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -57,11 +71,37 @@ function LoginComponent(props: ILoginProps) {
         props.loginAction(username, password);
     }
 
+    let preLoginTracking = async () => {
+        console.log('Login with Google');
+    }
+ 
+    let errorHandler = async (error: string) => {
+        console.error(error);
+    }
+ 
+    let responseGoogle = async (googleUser: gapi.auth2.GoogleUser) => {
+        const googleId = googleUser.getId()
+        const googleName = googleUser.getBasicProfile().getName();
+        const googleFirstName = googleUser.getBasicProfile().getGivenName();
+        const googleEmail = googleUser.getBasicProfile().getEmail();
+        //id might cause problesm
+        const gUser = new NewUser(googleFirstName, 'Guest', googleEmail, googleEmail, googleId)
+
+
+        props.registerAction(gUser)
+
+        if(props.errorMessage == ""){
+            props.loginAction(googleEmail, googleId)
+        }
+    
+    }
+
     return (
         props.authUser ?
         <Redirect to="/home" /> :
         <>
-            <div className={classes.loginContainer}>
+
+            <Paper className={classes.loginContainer}>
                 <form className={classes.loginForm}>
                     <Typography align="center" variant="h4">Login to Meme Store!</Typography>
 
@@ -85,6 +125,16 @@ function LoginComponent(props: ILoginProps) {
                     <br/><br/>
                     <Button onClick={login} variant="contained" color="secondary" size="medium">Login</Button>
                     <br/><br/>
+                    <Divider variant="middle" />
+                    <br/><br/>
+                    <div className={classes.centerButton}>
+                    <GoogleLoginButton
+                        responseHandler={responseGoogle}
+                        clientConfig={clientConfig}
+                        preLogin={preLoginTracking}
+                        failureHandler={errorHandler}
+                    />
+                    </div>
                     {
                         props.errorMessage 
                             ? 
@@ -93,7 +143,8 @@ function LoginComponent(props: ILoginProps) {
                         <></>
                     }
                 </form>
-            </div>
+            </Paper>
+
         </> 
     );
     
