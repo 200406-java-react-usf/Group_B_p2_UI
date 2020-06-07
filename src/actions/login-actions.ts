@@ -15,7 +15,6 @@ export const loginAction = (username: string, password: string) => async (dispat
     try {
         //Missing Authenticate remote to connect to API
         let authUser = await authenticate(username, password);
-        //let authUser = User;
         dispatch({
             type: loginActionTypes.SUCCESSFUL_LOGIN,
             payload: authUser

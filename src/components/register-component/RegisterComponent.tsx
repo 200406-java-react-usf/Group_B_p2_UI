@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { Typography, FormControl, InputLabel, Input, Button, makeStyles } from '@material-ui/core';
+import { Typography, FormControl, InputLabel, Input, Button, makeStyles, Paper } from '@material-ui/core';
 import { Redirect } from 'react-router';
 import {Alert} from '@material-ui/lab';
 import {NewUser} from '../../models/NewUser';
@@ -18,7 +18,7 @@ const useStyles = makeStyles({
 		justifyContent: "center",
 		margin: 20, 
 		marginTop: 40, 
-		padding: 20
+		padding: "5%"
 	},
 	registerForm: {
 		width: "50%"
@@ -60,8 +60,9 @@ const RegisterComponent = (props: IRegisterProps) =>{
 		props.registerAction(new NewUser(firstName, lastName, email, username, password));
 	}
 	return (
-		props.authUser ? <Redirect to="/home" /> :
-        <div className={classes.registerContainer}>
+        props.authUser ? <Redirect to="/home" /> :
+
+        <Paper className={classes.registerContainer}>
             <form className={classes.registerForm}>
                 <Typography align="center" variant="h4">Register for MemeStore!</Typography>
 
@@ -113,7 +114,7 @@ const RegisterComponent = (props: IRegisterProps) =>{
                 <Button 
                     onClick={signUp} 
                     variant="contained" 
-                    color="primary" 
+                    color="secondary" 
                     size="medium">Register
                 </Button>
                 <br/><br/>
@@ -125,7 +126,7 @@ const RegisterComponent = (props: IRegisterProps) =>{
                     <></>
                 }
             </form>
-        </div>
+        </Paper>
     );
 }
 

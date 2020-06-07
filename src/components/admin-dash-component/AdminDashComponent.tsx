@@ -74,15 +74,16 @@ const ReimbComponent = (props: IAdminDashProps) => {
    //!(props.authUser.role_name =='MANAGER')  ? <Redirect to='/home' /> :    
     <>
         <div>
-            <Grid container spacing={3}>
-                <Grid item xs={12}>
-                    <Typography>Admin Dashboard</Typography>
+            <Grid container spacing={3} style={{paddingTop:"3%"}}>
+                <Grid item xs={2}></Grid>
+                <Grid item xs={2}>
+                    <Button component={Link} to='/additem' variant="contained" color="secondary">Add New Item</Button>
                 </Grid>
-                <Grid item xs={6}>
-                    <Button><Link to='additem'>Add New Item</Link></Button>
+                <Grid item xs={4}>
+                    <Typography variant="h3">Admin Dashboard</Typography>
                 </Grid>
-                <Grid item xs={6}>
-                    <Button><Link to='invoices'>View All Invoices</Link></Button>
+                <Grid item xs={2}>
+                    <Button component={Link} to='/invoices' variant="contained" color="secondary">View all invoices</Button>
                 </Grid>
             </Grid>
         </div>

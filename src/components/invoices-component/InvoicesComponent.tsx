@@ -4,6 +4,7 @@ import { User } from '../../models/User';
 import { makeStyles, Select, MenuItem, Grid, Typography, Button, TableContainer, TableHead, TableRow, TableCell, Table, TableBody, ListItem, ListItemText } from '@material-ui/core';
 import { Invoice } from '../../models/Invoice';
 import { getAllInvoices } from '../../remote/invoices-service';
+import { Redirect } from 'react-router';
 
 
 
@@ -28,7 +29,6 @@ const InvoicesComponent = (props: IInvoiceProps) => {
 
 
     let getTableData = async () => {
-        console.log("inside get table data <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
         let result = (await getAllInvoices()).filter(function(invoice: Invoice) {
             return invoice
         });
@@ -44,7 +44,7 @@ const InvoicesComponent = (props: IInvoiceProps) => {
     }, []);
 
   return (
-   // !(props.authUser.role_name =='admin')  ? <Redirect to='/home' />:   
+   ((props.authUser.role !='MANAGER') || !props.authUser)? <Redirect to='/home' />:   
     <>
         <div>
             < MaterialTable

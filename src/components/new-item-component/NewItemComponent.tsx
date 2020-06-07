@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import { makeStyles, Typography, FormControl, InputLabel, Input, Button, TextField, InputAdornment, Select, MenuItem, FormControlLabel, Radio, RadioGroup } from '@material-ui/core';
+import { makeStyles, Typography, FormControl, InputLabel, Input, Button, TextField, InputAdornment, Select, MenuItem, FormControlLabel, Radio, RadioGroup, Paper } from '@material-ui/core';
 import { Link, Redirect } from 'react-router-dom';
 import { NewInventory } from '../../models/NewInventory';
+import { User } from '../../models/User';
 
 
 
 export interface INewItemProps {
+    authUser: User;
     newItem: NewInventory;
     newItemAction: (item: NewInventory) => void;   
 } 
@@ -36,7 +38,7 @@ let AddItemComponent = (props: INewItemProps) => {
                 setCost(e.target.value);
                 break;
             case 'category':
-                setCategory((e.target as HTMLInputElement).value);
+                setCategory(e.target.value);
                 break;
             case 'item_image':
                 setItemImage(e.target.value);
@@ -59,8 +61,11 @@ let AddItemComponent = (props: INewItemProps) => {
         //!props.authUser?
         //<Redirect to='/login'/>:
         <>
-        <div style={{ marginTop: 0, marginLeft: '28%', marginRight: '28%', marginBottom: '13%', backgroundColor:'rgba(255, 255, 255, 0.651)'}} className='border-radius'>
-        <div >
+        <Paper style={{display: "flex",
+                justifyContent: "center",
+                margin: 20,
+                marginTop: 40,
+                padding: 20}}>
             <form >
                 <Typography align="left" variant="h4">New Inventory Item</Typography>
 
@@ -91,13 +96,11 @@ let AddItemComponent = (props: INewItemProps) => {
                 </FormControl>
                 <FormControl margin="normal" fullWidth>
                     <InputLabel htmlFor="category">Category</InputLabel>
-                    <br/><br/>
-                    <RadioGroup aria-label="category" name="category" value={category} onChange={e => setCategory(e.target.value)}>
-                        {/* will need to update categories before production */}
-                        <FormControlLabel value="Category 1" control={<Radio />} label="Category 1" />
-                        <FormControlLabel value="Category 2" control={<Radio />} label="Category 2" />
-                        <FormControlLabel value="Category 3" control={<Radio />} label="Category 3" />
-                    </RadioGroup>
+                    <Input 
+                        onChange={updateField} 
+                        value={category} 
+                        id="category" type="text" 
+                        placeholder="Category" />
                 </FormControl>
                 <FormControl margin="normal" fullWidth>
                     <InputLabel htmlFor="item_image">Item Image</InputLabel>
@@ -108,10 +111,8 @@ let AddItemComponent = (props: INewItemProps) => {
                         placeholder="Item image URL"/>
                 </FormControl>
 
-
-
                 <br/><br/>
-                <Link onClick={addNewItem} to='/admin-dashboard' className="btn btn-primary btn-m" role="button" style={{color: 'white', backgroundColor: "#3340a1", borderColor: "#3340a1"}}>Add Item</Link>
+                <Button component={Link} onClick={addNewItem} to='/admin-dashboard' variant="contained" color="secondary">Add Item</Button>
                 <br/><br/>
                 {
                     errorMessage 
@@ -121,8 +122,7 @@ let AddItemComponent = (props: INewItemProps) => {
                     <></>
                 }
             </form>
-        </div>
-        </div>
+        </Paper>
         </>
     );
 
