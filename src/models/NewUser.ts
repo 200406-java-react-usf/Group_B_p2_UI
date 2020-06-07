@@ -1,7 +1,7 @@
 export class NewUser {
 
-    firstName: string;
-    lastName: string;
+    first_name: string;
+    last_name: string;
     email: string;
     username: string;
     password: string;
@@ -13,8 +13,8 @@ export class NewUser {
         un: string,
         pw: string) 
     {
-        this.firstName = fn;
-        this.lastName = ln;
+        this.first_name = fn;
+        this.last_name = ln;
         this.email = email;
         this.username = un;
         this.password = pw;

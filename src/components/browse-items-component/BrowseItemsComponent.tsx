@@ -5,6 +5,8 @@ import { Link, Route } from 'react-router-dom';
 import { listenerCount } from 'cluster';
 import ItemDetailsComponent from '../item-details-component/ItemDetailsContainer'
 import { browseAction } from '../../actions/browse-items-actions';
+import { getAllInventory } from '../../remote/inventory-service';
+import { maxHeaderSize } from 'http';
 
 interface IBrowseProps {
     browseAction: ((item: Inventory) => void)
@@ -31,14 +33,16 @@ const useStyles = makeStyles((theme:Theme) =>
 let BrowseItemsComponent = (props: IBrowseProps) => {
 
     const[items, setItems] = useState([] as Inventory[]);
-    const[priceValue, setPriceValue] = useState<number[]>([0, 100]);
+    const[priceValue, setPriceValue] = useState<number[]>([0, 1000]);
     const[filterVals, setFilterVals] = useState<string[]>([]);
     const[currentFilters, setCurrentFilters] = useState<string[]>([]);
     const[currentSort, setCurrentSort] = useState<string>("new");
-    
+    const[maxPrice, setMaxPrice] = useState<number>(0);
+
     let itemCards: any[] = [];
     let category: string[] = [];
     let filters: Array<any> = [];
+    
     
 
     const classes = useStyles();
@@ -73,16 +77,7 @@ let BrowseItemsComponent = (props: IBrowseProps) => {
     
         let fetchData = async () => {
     
-        //const response = await getInventory();
-    
-        let item1 = new Inventory(1, "item 1", "first item", 1.00, "other", "https://project-two-meme-store-pictures.s3.us-east-2.amazonaws.com/gaming-meme/Funny-Gaming-Memes-29.jpg");
-        let item2 = new Inventory(2, "item 2", "second item", 56.00, "a", "image");
-        let item3 = new Inventory(3, "item 3", "third item", 3.00, "b", "image");
-        let item4 = new Inventory(4, "if 1 has a", "fourth item", 4.00, "c", "image");
-        let item5 = new Inventory(5, "item 5", "fifth item", 5.00, "d", "image");
-    
-        
-        let response = [item1, item2, item3, item4, item5]
+        let response:Inventory[] = await getAllInventory();
         
         if(currentSort === "new"){
             response = response.sort((a, b) => (a.item_id > b.item_id) ? 1 : -1)
@@ -93,6 +88,12 @@ let BrowseItemsComponent = (props: IBrowseProps) => {
         } else if(currentSort === "high"){
             response = response.sort((a, b) => (a.cost < b.cost) ? 1 : -1)
         }
+
+        response.forEach(item => {
+            if (Math.ceil(item.cost) > maxPrice){
+                setMaxPrice(Math.ceil(item.cost))
+            }
+        })
         
         response.forEach(element => {if(!category.includes(element.category)) category.push(element.category)})
         
@@ -110,14 +111,13 @@ let BrowseItemsComponent = (props: IBrowseProps) => {
                 )
             }
             setFilterVals(filters);
-            console.log(priceValue[0], priceValue[1])
 
             for (let item of response){
                 if((currentFilters.length === 0 || currentFilters.includes(item.category)) && item.cost > priceValue[0] && item.cost < priceValue[1]){
                     itemCards.push(
                         <>
                         <Grid item spacing={2}>
-                            <Card className={classes.root} raised={true}>
+                            <Card className={classes.root} raised={true} square={true}>
                                 <CardActionArea>
                                     <CardMedia
                                     className={classes.media}
@@ -145,9 +145,9 @@ let BrowseItemsComponent = (props: IBrowseProps) => {
                     )
                 }
             }
+
             setItems(itemCards);
         };
-
         fetchData();
 
     }, [currentFilters, priceValue, currentSort]);
@@ -194,6 +194,8 @@ let BrowseItemsComponent = (props: IBrowseProps) => {
                             aria-labelledby="range-slider"
                             getAriaValueText={valuetext}
                             valueLabelDisplay="on"
+                            min={0}
+                            max={maxPrice}
                             />
                             </div>
                         </List>

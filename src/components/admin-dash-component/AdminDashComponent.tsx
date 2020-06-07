@@ -5,7 +5,7 @@ import { Alert } from '@material-ui/lab';
 import { makeStyles, Select, MenuItem, Grid, Typography, Button } from '@material-ui/core';
 import { Redirect } from 'react-router';
 import { Inventory } from '../../models/Inventory'
-import { deleteInventory, newInventory, getAllInventory } from '../../remote/inventory-service';
+import { deleteInventory, updateInventory, getAllInventory } from '../../remote/inventory-service';
 import { Link } from 'react-router-dom';
 
 export interface IAdminDashProps {
@@ -37,14 +37,14 @@ const ReimbComponent = (props: IAdminDashProps) => {
         setTableData(result);
     }
     
-    // const updateRow = async (updatedItem: Inventory) => {
-    //     try {
-    //         await updateInventor(updatedItem);
-    //         await getTableData();
-    //     } catch (e) {
-    //         setErrorMessage(e.response.data.reason);
-    //     }
-    // }
+    const updateRow = async (updatedItem: Inventory) => {
+        try {
+            await updateInventory(updatedItem.item_name, updatedItem.details, updatedItem.cost, updatedItem.category, updatedItem.item_image);
+            await getTableData();
+        } catch (e) {
+            setErrorMessage(e.response.data.reason);
+        }
+    }
     
     const deleteRow = async (itemToBeDeleted: Inventory) =>{
         try{
@@ -97,10 +97,10 @@ const ReimbComponent = (props: IAdminDashProps) => {
                     { title: 'Category', field: 'category' , editable: 'never'},
                     { title: 'Image', field: 'item_image' , editable: 'never', render: rowData => <img src={rowData.item_image} style={{width: 50}}/>}                                  
                 ]}
-            data={[
-                { item_id: 1, item_name: 'Test Meme', details: 'Test', cost: 2.45, category: 'meme', item_image: 'https://avatars0.githubusercontent.com/u/7895451?s=460&v=4'}
-            ]}
-            //data = {items}
+            // data={[
+            //     { item_id: 1, item_name: 'Test Meme', details: 'Test', cost: 2.45, category: 'meme', item_image: 'https://avatars0.githubusercontent.com/u/7895451?s=460&v=4'}
+            // ]}
+            data = {items}
             title = "Inventory Items"
             detailPanel={rowData => {
                 return (
