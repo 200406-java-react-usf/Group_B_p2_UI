@@ -4,6 +4,7 @@ import { User } from '../../models/User';
 import { makeStyles, List, ListItem, Typography, ListItemText, Select, Menu, MenuItem, Button, ClickAwayListener, IconButton, Badge } from '@material-ui/core';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { Inventory } from '../../models/Inventory';
+import { GoogleLogout } from 'react-google-login';
 
 //Navbar Properties passed from container
 interface INavbarProps {
@@ -35,12 +36,12 @@ function NavbarComponent (props: INavbarProps) {
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
       setAnchorEl(event.currentTarget);
     };
-  
+
     let userLogout = async () => {
         props.logoutAction();
+        
         localStorage.clear();
     }
-
   
     const handleClose = () => {
       setAnchorEl(null);
@@ -66,6 +67,29 @@ function NavbarComponent (props: INavbarProps) {
                                 </Typography>
                             </ListItemText>
                             
+                            {/* <ListItemText inset>
+                                <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
+                                    Admin Control Panel
+                                </Button>
+                                <Menu
+                                    id="simple-menu"
+                                    anchorEl={anchorEl}
+                                    keepMounted
+                                    open={Boolean(anchorEl)}
+                                >
+                                            <MenuItem disabled>Admin Control Panel</MenuItem>
+                                            <MenuItem onClick={handleClose}><Link to="/items">View Inventory</Link></MenuItem>
+                                            <MenuItem onClick={handleClose}><Link to="/addItem">Add Item</Link></MenuItem>
+                                </Menu>      
+                            </ListItemText >
+                            <ListItemText inset>
+                                    <Link to="/cart" className={classes.logout} onClick={userLogout}>
+                                    <Badge color ="secondary" badgeContent={props.cart.length}>
+                                         <ShoppingCartIcon /> 
+                                    </Badge>
+                                    </Link>
+                                 
+                            </ListItemText>
                             <ListItemText inset>
                                 <Typography color="inherit" variant="h6" style={{marginLeft:0, marginRight:0}}>
                                     <Link to="/register" className={classes.link}>Register</Link>
@@ -77,7 +101,11 @@ function NavbarComponent (props: INavbarProps) {
                                     <Link to="/login" className={classes.link}>Login</Link>
                                 </Typography>
                             </ListItemText>
-                            
+                            <ListItemText inset>
+                                <Typography color="secondary" variant="h6">
+                                    <Link to="/login" className={classes.logout} onClick={userLogout}>Logout</Link>
+                                </Typography>
+                            </ListItemText> */}
                             
                             </> 
                         :
@@ -119,19 +147,29 @@ function NavbarComponent (props: INavbarProps) {
                                 </Typography>
                             </ListItemText>
                             <ListItemText inset>
-                                
-                                <Link to="/cart" className={classes.logout} onClick={userLogout}>
-                                    <Badge color ="secondary" badgeContent={props.cart.length}>
+                                <Badge color ="secondary" badgeContent={props.cart.length}>
+                                    <Link to="/cart" className={classes.logout} onClick={userLogout}>
                                          <ShoppingCartIcon /> 
-                                    </Badge>
-                                </Link>
-                                 
+                                    </Link>
+                                 </Badge>
                             </ListItemText>
-                            <ListItemText inset>
-                                <Typography color="secondary" variant="h6">
-                                    <Link to="/login" className={classes.logout} onClick={userLogout}>Logout</Link>
-                                </Typography>
-                            </ListItemText>
+                            {props.authUser.last_name === 'Guest' ?
+                                <>
+                                    <GoogleLogout
+                                        clientId="591571828049-u4mun2n3qqfoeit95o7rv5f45pvqsac0.apps.googleusercontent.com"
+                                        buttonText="Logout"
+                                        onLogoutSuccess={userLogout}
+                                    ></GoogleLogout>
+                                </>
+                                :
+                                <>
+                                    <ListItemText inset>
+                                        <Typography color="secondary" variant="h6">
+                                            <Link to="/login" className={classes.logout} onClick={userLogout}>Logout</Link>
+                                        </Typography>
+                                    </ListItemText> 
+                                </>
+                            }
                         </>
                     }
                 </ListItem>
