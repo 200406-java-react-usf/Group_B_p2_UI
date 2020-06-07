@@ -24,7 +24,7 @@ interface ILoginProps {
     authUser: User;
     errorMessage: string;
     loginAction: (username: string, password: string) => void;
-    googleLoginAction: (user: User) => void;
+    registerAction: (user: NewUser) => void;
 }
 
 const useStyles = makeStyles({
@@ -85,9 +85,9 @@ function LoginComponent(props: ILoginProps) {
         const googleFirstName = googleUser.getBasicProfile().getGivenName();
         const googleEmail = googleUser.getBasicProfile().getEmail();
         //id might cause problesm
-        const gUser = new User(0, 'USER', googleEmail, googleId, googleEmail, googleFirstName, 'Guest');
+        const gUser = new NewUser(googleFirstName, 'Guest', googleEmail, googleEmail, googleId)
 
-        props.googleLoginAction(gUser);
+        props.registerAction(gUser);
         
         //const id_token = googleUser.getAuthResponse(true).id_token
         //console.log({accessToken: id_token})

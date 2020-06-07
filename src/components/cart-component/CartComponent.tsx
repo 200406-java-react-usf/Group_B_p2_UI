@@ -79,15 +79,8 @@ let CartComponent = (props: ICartProps) =>{
         </div>
       );
 
-    const purchaseItems = () => {
-        if(props.authUser.last_name === "Guest"){
-            let newUser = new NewUser(props.authUser.first_name, 
-                                      props.authUser.last_name,
-                                      props.authUser.email,
-                                      props.authUser.username,
-                                      props.authUser.password)
-            props.registerAction(newUser)
-        }
+    const purchaseItems = async () => {
+        
         props.cartAction(props.cart, props.authUser);
         handleOpen();
     }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { User } from '../../models/User';
 import { makeStyles, List, ListItem, Typography, ListItemText, Select, Menu, MenuItem, Button, ClickAwayListener, IconButton, Badge } from '@material-ui/core';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
@@ -41,6 +41,7 @@ function NavbarComponent (props: INavbarProps) {
         props.logoutAction();
         
         localStorage.clear();
+
     }
   
     const handleClose = () => {
@@ -130,6 +131,7 @@ function NavbarComponent (props: INavbarProps) {
                                         buttonText="Logout"
                                         onLogoutSuccess={userLogout}
                                     ></GoogleLogout>
+                                    <Redirect to="/login"/>
                                 </>
                                 :
                                 <>
