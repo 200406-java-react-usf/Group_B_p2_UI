@@ -25,7 +25,7 @@ export interface IItemDetailsState {
 }
 
 export interface ICartState {
-    cart: Array<Inventory>;
+
 }
 
 export interface IBrowseItemsState {
@@ -44,7 +44,6 @@ export interface INewItemState {
 }
 
 export interface INavbarState {
-    authUser: User;
     errorMessage: string;
     cart: Inventory[];
 }

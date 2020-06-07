@@ -5,9 +5,11 @@ import {Alert} from '@material-ui/lab';
 import { Inventory } from '../../models/Inventory';
 import { detailsAction } from '../../actions/item-details-actions';
 import { Link } from 'react-router-dom';
+import { User } from '../../models/User';
 
 
 export interface IItemDetailsProps{
+    authUser: User
     thisItem: Inventory
     cart: Array<Inventory>
     detailsAction: ((cart: Inventory[]) => void)
@@ -32,13 +34,26 @@ const useStyles = makeStyles({
 let ItemDetailsComponent = (props: IItemDetailsProps) =>{
     const classes = useStyles();
     const[quantity, setQuantity]= useState<number>(1);
+    const[error, setError]= useState<boolean>(false);
+    const[errorMessage, setErrorMessage]= useState<string>("");
 
 	//let item = new Inventory(1, "item 1", "a meme about gamers and a wholesome relationship with their mothers that they never thought was possible", 1.00, "other", "https://project-two-meme-store-pictures.s3.us-east-2.amazonaws.com/gaming-meme/Funny-Gaming-Memes-29.jpg")
     const changeQuantity = (event: any) => {
-        setQuantity(event.target.value);
+        if(event.target.value > 0){
+            setError(false);
+            setErrorMessage("")
+            setQuantity(event.target.value);
+        } else if(event.target.value == 0) {
+            setError(true);
+            setErrorMessage("no items will be added to cart")
+        } else {
+            setError(true);
+            setErrorMessage("value cannot be less than 0")
+        }
     }
     
     const addToCart = () => {
+        if(quantity > 0){
 
         let array: Array<Inventory> = [...props.cart]
 
@@ -48,6 +63,7 @@ let ItemDetailsComponent = (props: IItemDetailsProps) =>{
         }
 
         props.detailsAction(array);
+        }
     }
 
 	return (
@@ -100,8 +116,12 @@ let ItemDetailsComponent = (props: IItemDetailsProps) =>{
                             id="outlined-number"
                             label="Quantity"
                             type="number"
+                            size="small"
+                            error={error}
+                            helperText={errorMessage}
                             InputLabelProps={{
                                 shrink: true,
+                                margin: "dense"
                             }}
                             variant="outlined"   
                         />
@@ -110,10 +130,20 @@ let ItemDetailsComponent = (props: IItemDetailsProps) =>{
 
                         </ListItem>
                         <ListItem>
-                        <Button variant="contained" color="secondary" onClick={addToCart}>
-                        Add to Cart
-                        </Button>  
+                            {!props.authUser?
+                            <Button variant="contained" color="secondary" onClick={addToCart} disabled={true}>
+                            Add to Cart
+                            </Button>
+                            :
+                            <Button variant="contained" color="secondary" onClick={addToCart}>
+                            Add to Cart
+                            </Button>  
+                            }                       
                         </ListItem>
+                        {!props.authUser?
+                        <ListItem style={{color:"red"}}>Please login to create cart</ListItem>:
+                        <></>
+                        }
                     </List>
                 </Grid>
             </Grid>

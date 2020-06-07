@@ -1,4 +1,5 @@
 import { memeStoreClient } from "./memestore-client";
+import { Inventory } from "../models/Inventory";
 
 export async function getAllInvoices(){
 	let response = await memeStoreClient.get('/invoices');
@@ -11,7 +12,7 @@ export async function getInvoiceById(id: number){
 }
 
 export async function newInvoice(user_id: number, total_cost: number, items: Array<number>){
-	let response = await memeStoreClient.post('/invoice',{user_id, total_cost, items});
+	let response = await memeStoreClient.post('/invoices',{user_id, total_cost, items});
 	return response.data;
 }
 

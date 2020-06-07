@@ -1,20 +1,20 @@
 import { IState } from "../../reducers";
 import { connect } from "react-redux";
-import ItemDetailsComponent from "./ItemDetailsComponent";
+import CartComponent from "./CartComponent";
+import {cartAction} from "../../actions/cart-actions"
 import {detailsAction} from "../../actions/item-details-actions"
-import { thisItemActionTypes } from "../../actions/browse-items-actions";
 
 
 const mapStateToProps = (state: IState) => {
     return {
         authUser: state.login.authUser,
-        thisItem: state.setThisItem.thisItem,
         cart: state.setCartItems.cartItems
     }
 }
 
 const mapDispatchToProps = {
+    cartAction,
     detailsAction
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ItemDetailsComponent);
+export default connect(mapStateToProps, mapDispatchToProps)(CartComponent);
