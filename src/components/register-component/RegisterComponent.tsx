@@ -1,181 +1,132 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, {useState} from 'react';
+import { Typography, FormControl, InputLabel, Input, Button, makeStyles } from '@material-ui/core';
+import { Redirect } from 'react-router';
+import {Alert} from '@material-ui/lab';
+import {NewUser} from '../../models/NewUser';
 import { User } from '../../models/User';
-import { makeStyles, List, ListItem, Typography, ListItemText, Select, Menu, MenuItem, Button, ClickAwayListener, IconButton, Badge } from '@material-ui/core';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import { Inventory } from '../../models/Inventory';
-import { GoogleLogout } from 'react-google-login';
 
-//Navbar Properties passed from container
-interface INavbarProps {
-    authUser: User;
-    errorMessage: string;
-    cart: Inventory[];
-    logoutAction: () => void;
+
+export interface IRegisterProps{
+	authUser: User | undefined;
+	errorMessage: string;
+	registerAction: (NewUser: NewUser) => void;
 }
-//Navbar Style Set
-const useStyles = makeStyles({
-    link: {
-        textDecoration: "none",
-        color: "white"
-    },
 
-    logout: {
-        border: 2,
-        borderRadius: 5,
-        color: 'black',
-        height: 48,
-        padding: '10px 30px'
-    }
+const useStyles = makeStyles({
+	registerContainer:{
+		display: "flex", 
+		justifyContent: "center",
+		margin: 20, 
+		marginTop: 40, 
+		padding: 20
+	},
+	registerForm: {
+		width: "50%"
+	}
 });
 
-function NavbarComponent (props: INavbarProps) {
-    const classes = useStyles();
-    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+const RegisterComponent = (props: IRegisterProps) =>{
+	const classes = useStyles();
 
-    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-      setAnchorEl(event.currentTarget);
-    };
+	const [firstName, setFirstName] = useState('');
+	const [lastName, setLastName] = useState('');
+	const [email, setEmail] = useState('');
+	const [username, setUsername] = useState('');
+	const [password, setPassword] = useState('');
 
-    let userLogout = async () => {
-        props.logoutAction();
-        
-        localStorage.clear();
-    }
-  
-    const handleClose = () => {
-      setAnchorEl(null);
-    };
-   
-    return(
-        <>
-            <List component="nav">
-                <ListItem component="div">
-                    <Typography color="inherit" variant="h5">
-                        <Link to="/home" className={classes.link}>
-                            <img width="100" src="https://project-two-meme-store-pictures.s3.us-east-2.amazonaws.com/logo/meme+store.PNG"/>
-                        </Link>
-                    </Typography>
-                    {
-                        !  props.authUser ?
-                        <>
-                            
-                            
-                            <ListItemText inset>
-                                <Typography color="inherit" variant="h6">
-                                    <Link to="/browse" className={classes.link}>Browse Memes</Link>
-                                </Typography>
-                            </ListItemText>
-                            
-                            {/* <ListItemText inset>
-                                <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
-                                    Admin Control Panel
-                                </Button>
-                                <Menu
-                                    id="simple-menu"
-                                    anchorEl={anchorEl}
-                                    keepMounted
-                                    open={Boolean(anchorEl)}
-                                >
-                                            <MenuItem disabled>Admin Control Panel</MenuItem>
-                                            <MenuItem onClick={handleClose}><Link to="/items">View Inventory</Link></MenuItem>
-                                            <MenuItem onClick={handleClose}><Link to="/addItem">Add Item</Link></MenuItem>
-                                </Menu>      
-                            </ListItemText >
-                            <ListItemText inset>
-                                    <Link to="/cart" className={classes.logout} onClick={userLogout}>
-                                    <Badge color ="secondary" badgeContent={props.cart.length}>
-                                         <ShoppingCartIcon /> 
-                                    </Badge>
-                                    </Link>
-                                 
-                            </ListItemText>
-                            <ListItemText inset>
-                                <Typography color="inherit" variant="h6" style={{marginLeft:0, marginRight:0}}>
-                                    <Link to="/register" className={classes.link}>Register</Link>
-                                </Typography>
-                            </ListItemText>
-                            <ListItemText inset>|</ListItemText>
-                            <ListItemText inset>
-                                <Typography color="inherit" variant="h6">
-                                    <Link to="/login" className={classes.link}>Login</Link>
-                                </Typography>
-                            </ListItemText>
-                            <ListItemText inset>
-                                <Typography color="secondary" variant="h6">
-                                    <Link to="/login" className={classes.logout} onClick={userLogout}>Logout</Link>
-                                </Typography>
-                            </ListItemText> */}
-                            
-                            </> 
+	let updateFormField = (e:any) =>{
+		switch (e.target.id){
+			case 'firstName': 
+				setFirstName(e.target.value);
+				break;
+			case 'lastName':
+				setLastName(e.target.value);
+				break;
+			case 'email':
+				setEmail(e.target.value);
+				break;
+			case 'username':
+				setUsername(e.target.value);
+				break;
+			case 'password':
+				setPassword(e.target.value);
+				break;
+			default:
+				console.warn(`Improper binding detected on element with id: ${e.currentTarget.id}`);
+		}		
+	}
+
+	let signUp = async () => {
+		props.registerAction(new NewUser(firstName, lastName, email, username, password));
+	}
+	return (
+		props.authUser ? <Redirect to="/home" /> :
+        <div className={classes.registerContainer}>
+            <form className={classes.registerForm}>
+                <Typography align="center" variant="h4">Register for MemeStore!</Typography>
+
+                <FormControl margin="normal" fullWidth>
+                    <InputLabel htmlFor="firstName">First Name</InputLabel>
+                    <Input 
+                        onChange={updateFormField} 
+                        value={firstName} 
+                        id="firstName" type="text" 
+                        placeholder="Enter your first name" />
+                </FormControl>
+
+                <FormControl margin="normal" fullWidth>
+                    <InputLabel htmlFor="lastName">Last Name</InputLabel>
+                    <Input 
+                        onChange={updateFormField} 
+                        value={lastName} 
+                        id="lastName" type="text" 
+                        placeholder="Enter your last name" />
+                </FormControl>
+
+                <FormControl margin="normal" fullWidth>
+                    <InputLabel htmlFor="email">Email Address</InputLabel>
+                    <Input 
+                        onChange={updateFormField} 
+                        value={email} 
+                        id="email" type="text" 
+                        placeholder="Enter your email address" />
+                </FormControl>
+
+                <FormControl margin="normal" fullWidth>
+                    <InputLabel htmlFor="username">Username</InputLabel>
+                    <Input 
+                        onChange={updateFormField} 
+                        value={username} 
+                        id="username" type="text" 
+                        placeholder="Enter your username" />
+                </FormControl>
+
+                <FormControl margin="normal" fullWidth>
+                    <InputLabel htmlFor="password">Password</InputLabel>
+                    <Input 
+                        onChange={updateFormField}
+                        value={password}
+                        id="password" type="password"
+                        placeholder="Enter your password"/>
+                </FormControl>
+                <br/><br/>
+                <Button 
+                    onClick={signUp} 
+                    variant="contained" 
+                    color="primary" 
+                    size="medium">Register
+                </Button>
+                <br/><br/>
+                {
+                    props.errorMessage 
+                        ? 
+                    <Alert severity="error">{props.errorMessage}</Alert>
                         :
-                        props.authUser.role_name ==='admin' ?
-                        <>
-                            <ListItemText inset>
-                                <Typography color="inherit" variant="h6">
-                                    <Link to="/browse" className={classes.link}>Browse Memes</Link>
-                                </Typography>
-                            </ListItemText>
-                            <ListItemText inset>
-                                <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
-                                    Admin Control Panel
-                                </Button>
-                                <Menu
-                                    id="simple-menu"
-                                    anchorEl={anchorEl}
-                                    keepMounted
-                                    open={Boolean(anchorEl)}
-                                >
-                                            <MenuItem disabled>Admin Control Panel</MenuItem>
-                                            <MenuItem onClick={handleClose}><Link to="/admin-dashboard">Dashboard</Link></MenuItem>
-                                            <MenuItem onClick={handleClose}><Link to="/additem">Add Item</Link></MenuItem>
-                                            <MenuItem onClick={handleClose}><Link to="/invoices">View All Invoices</Link></MenuItem>
-                                </Menu>      
-                            </ListItemText >
-
-                            <ListItemText inset>
-                                <Typography color="secondary" variant="h6">
-                                    <Link to="/login" className={classes.logout} onClick={userLogout}>Logout</Link>
-                                </Typography>
-                            </ListItemText>
-                        </>
-                         :
-                        <>
-                            <ListItemText inset>
-                                <Typography color="inherit" variant="h6">
-                                    <Link to="/browse" className={classes.link}>Browse Memes</Link>
-                                </Typography>
-                            </ListItemText>
-                            <ListItemText inset>
-                                <Badge color ="secondary" badgeContent={props.cart.length}>
-                                    <Link to="/cart" className={classes.logout} onClick={userLogout}>
-                                         <ShoppingCartIcon /> 
-                                    </Link>
-                                 </Badge>
-                            </ListItemText>
-                            {props.authUser.last_name === 'Guest' ?
-                                <>
-                                    <GoogleLogout
-                                        clientId="591571828049-u4mun2n3qqfoeit95o7rv5f45pvqsac0.apps.googleusercontent.com"
-                                        buttonText="Logout"
-                                        onLogoutSuccess={userLogout}
-                                    ></GoogleLogout>
-                                </>
-                                :
-                                <>
-                                    <ListItemText inset>
-                                        <Typography color="secondary" variant="h6">
-                                            <Link to="/login" className={classes.logout} onClick={userLogout}>Logout</Link>
-                                        </Typography>
-                                    </ListItemText> 
-                                </>
-                            }
-                        </>
-                    }
-                </ListItem>
-            </List>
-        </>
-    )
+                    <></>
+                }
+            </form>
+        </div>
+    );
 }
 
-export default NavbarComponent;
+export default RegisterComponent;
