@@ -1,5 +1,6 @@
 import { Dispatch } from "redux";
 import { User } from "../models/User";
+import { authenticate } from "../remote/auth-service";
 
 export const loginActionTypes = {
     SUCCESSFUL_LOGIN: 'MEME_SUCCESSFUL_LOGIN',
@@ -13,19 +14,13 @@ export const loginActionTypes = {
 export const loginAction = (username: string, password: string) => async (dispatch: Dispatch) => {
     
     try {
-        //Missing Authenticate remote to connect to API
-        //let authUser = await authenticate(username, password);
-        let authUser = User;
-        // let gUser = User;
+        
+        let authUser = await authenticate(username, password);
+
         dispatch({
             type: loginActionTypes.SUCCESSFUL_LOGIN,
             payload: authUser
         });
-
-        // dispatch({
-        //     type: loginActionTypes.SUCCESSFUL_LOGIN_GOOGLE,
-        //     payload: gUser
-        // });
 
     } catch (e) {
 

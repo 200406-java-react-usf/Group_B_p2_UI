@@ -23,6 +23,7 @@ interface ILoginProps {
     authUser: User;
     errorMessage: string;
     loginAction: (username: string, password: string) => void;
+    googleLoginAction: (user: User) => void;
 }
 
 const useStyles = makeStyles({
@@ -80,21 +81,15 @@ function LoginComponent(props: ILoginProps) {
     let responseGoogle = async (googleUser: gapi.auth2.GoogleUser) => {
         const googleId = googleUser.getId()
         const googleName = googleUser.getBasicProfile().getName();
-        const goolgeFirstName = googleUser.getBasicProfile().getGivenName();
+        const googleFirstName = googleUser.getBasicProfile().getGivenName();
         const googleEmail = googleUser.getBasicProfile().getEmail();
-    
-        //getName will equal getGivenName if no familyName is provided
-        const gUser = new NewUser(goolgeFirstName, 'GoogleGuest', googleEmail, googleName, googleId);
-        console.log(gUser);
+        //id might cause problesm
+        const gUser = new User(0, 'USER', googleEmail, googleId, googleEmail, googleFirstName, 'Guest');
 
-        props.loginAction(googleName, googleId);
+        props.googleLoginAction(gUser);
         
         //const id_token = googleUser.getAuthResponse(true).id_token
         //console.log({accessToken: id_token})
-    }
-
-    let logout = () => {
-        console.log('Google User has logout');
     }
 
     return (
@@ -135,15 +130,6 @@ function LoginComponent(props: ILoginProps) {
                         failureHandler={errorHandler}
                     />
                     </div>
-                    <br/><br/>
-                    <Divider variant="middle" />
-                    <br/><br/>
-                    <GoogleLogout
-                        clientId="591571828049-u4mun2n3qqfoeit95o7rv5f45pvqsac0.apps.googleusercontent.com"
-                        buttonText="Logout"
-                        onLogoutSuccess={logout}
-                    ></GoogleLogout>
-                    
                     {
                         props.errorMessage 
                             ? 
