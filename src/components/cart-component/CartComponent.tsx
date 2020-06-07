@@ -3,6 +3,7 @@ import { Typography, FormControl, InputLabel, Input, Button, makeStyles, Breadcr
 import { Inventory } from '../../models/Inventory';
 import { User } from '../../models/User';
 import { Link } from 'react-router-dom';
+import { NewUser } from '../../models/NewUser';
 
 
 
@@ -11,6 +12,7 @@ export interface ICartProps{
     cart: Array<Inventory>
     cartAction: ((items: Inventory[], user: User) => void)
     detailsAction: ((cart: Inventory[]) => void)
+    registerAction: ((user: NewUser) => void)
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -78,6 +80,14 @@ let CartComponent = (props: ICartProps) =>{
       );
 
     const purchaseItems = () => {
+        if(props.authUser.last_name === "Guest"){
+            let newUser = new NewUser(props.authUser.first_name, 
+                                      props.authUser.last_name,
+                                      props.authUser.email,
+                                      props.authUser.username,
+                                      props.authUser.password)
+            props.registerAction(newUser)
+        }
         props.cartAction(props.cart, props.authUser);
         handleOpen();
     }
