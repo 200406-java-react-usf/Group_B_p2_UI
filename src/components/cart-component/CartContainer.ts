@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import CartComponent from "./CartComponent";
 import {cartAction} from "../../actions/cart-actions"
 import {detailsAction} from "../../actions/item-details-actions"
+import {registerAction} from "../../actions/register-actions"
 
 
 const mapStateToProps = (state: IState) => {
@@ -14,7 +15,8 @@ const mapStateToProps = (state: IState) => {
 
 const mapDispatchToProps = {
     cartAction,
-    detailsAction
+    detailsAction,
+    registerAction
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CartComponent);

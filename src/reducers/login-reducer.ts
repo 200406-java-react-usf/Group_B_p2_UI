@@ -20,10 +20,13 @@ export const loginReducer = (state: ILoginState = initialState, action: AnyActio
             }
 
         case logoutActionTypes.SUCCESSFUL_LOGOUT:
+            
             return {
                 ...state,
-                authUser: action.payload
+                //@ts-ignore
+                authUser: null as User
             }    
+
         case loginActionTypes.INVALID_CREDENTIALS:
         case loginActionTypes.AUTHORIZATION_ERROR:
         case loginActionTypes.BAD_REQUEST:

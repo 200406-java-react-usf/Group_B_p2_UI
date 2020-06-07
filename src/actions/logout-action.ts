@@ -10,7 +10,6 @@ export const logoutActionTypes = {
 
 export const logoutAction = () => async (dispatch: Dispatch) => {
     try {
-        await logout();
         dispatch({
             type: logoutActionTypes.SUCCESSFUL_LOGOUT,
             //@ts-ignore
