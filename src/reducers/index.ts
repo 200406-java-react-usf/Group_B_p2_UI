@@ -44,7 +44,6 @@ export interface INewItemState {
 }
 
 export interface INavbarState {
-    authUser: User;
     errorMessage: string;
     cart: Inventory[];
 }
