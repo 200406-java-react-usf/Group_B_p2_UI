@@ -87,10 +87,13 @@ function LoginComponent(props: ILoginProps) {
         //id might cause problesm
         const gUser = new NewUser(googleFirstName, 'Guest', googleEmail, googleEmail, googleId)
 
-        props.registerAction(gUser);
-        
-        //const id_token = googleUser.getAuthResponse(true).id_token
-        //console.log({accessToken: id_token})
+
+        props.registerAction(gUser)
+
+        if(props.errorMessage == ""){
+            props.loginAction(googleEmail, googleId)
+        }
+    
     }
 
     return (
