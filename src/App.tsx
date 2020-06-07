@@ -38,7 +38,7 @@ function App() {
             <Route path='/browse' render={() => <BrowseItemsComponent />} />
             <Route path='/additem' render={() => <NewItemComponent />} />
             <Route path='/admin-dashboard' render={() => <AdminDashComponent />} /> 
-            <Route path='/register' render={() => <RegisterComponent />} />
+            {/* <Route path='/register' render={() => <RegisterComponent />} /> */}
             <Route path={'/item-details'} render={() => <ItemDetailsComponent />} />
             <Route path={'/invoices'} render={() => <InvoicesComponent />} />
             <Route path='/home' render={() => <HomeComponent />} /> 
