@@ -6,7 +6,6 @@ import { NewInventory } from "../models/NewInventory";
 const initialState: INewItemState ={
     //@ts-ignore
     newItem: (null as NewInventory),
-    errorMessage: ''
 }
 
 

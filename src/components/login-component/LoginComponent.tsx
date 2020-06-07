@@ -134,12 +134,12 @@ function LoginComponent(props: ILoginProps) {
                     <Divider variant="middle" />
                     <br/><br/>
                     <div className={classes.centerButton}>
-                    {/* <GoogleLoginButton
+                    <GoogleLoginButton
                         responseHandler={responseGoogle}
                         clientConfig={clientConfig}
                         preLogin={preLoginTracking}
                         failureHandler={errorHandler}
-                    /> */}
+                    />
                     </div>
                     {
                         props.errorMessage 

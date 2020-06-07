@@ -128,7 +128,7 @@ let BrowseItemsComponent = (props: IBrowseProps) => {
                                     <Link onClick={(event) => {
                                         props.browseAction(item)
                                     }}
-                                        to={'/item-details'} color="white">
+                                        to={'/item-details'} color="primary">
                                         <Typography gutterBottom variant="h5" component="h2">
                                             {item.item_name}
                                         </Typography>

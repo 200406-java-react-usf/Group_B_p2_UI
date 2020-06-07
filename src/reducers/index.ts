@@ -40,20 +40,19 @@ export interface IRegisterState {
 
 export interface INewItemState {
     newItem: NewInventory;
-    errorMessage:string;
 }
 
 export interface INavbarState {
-    errorMessage: string;
     cart: Inventory[];
+    errorMessage: string;
 }
 
 export interface IInventoryState {
 
 }
 
-export interface IInvoicesState {
-    authUser: User;
+export interface IInvoiceState {
+    invoice: Invoice;
 }
 
 
