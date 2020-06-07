@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import MaterialTable from 'material-table';
 import { User } from '../../models/User';
-import { makeStyles, Select, MenuItem, Grid, Typography, Button, TableContainer, TableHead, TableRow, TableCell, Table, TableBody, ListItem, ListItemText } from '@material-ui/core';
+import { makeStyles, TableContainer, TableHead, TableRow, TableCell, Table, TableBody, ListItem } from '@material-ui/core';
 import { Invoice } from '../../models/Invoice';
 import { getAllInvoices } from '../../remote/invoices-service';
 import { Redirect } from 'react-router';
