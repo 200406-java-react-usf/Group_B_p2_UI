@@ -128,7 +128,7 @@ let BrowseItemsComponent = (props: IBrowseProps) => {
                                     <Link onClick={(event) => {
                                         props.browseAction(item)
                                     }}
-                                        to={'/item-details'} color="primary">
+                                        to={'/item-details'} color="white">
                                         <Typography gutterBottom variant="h5" component="h2">
                                             {item.item_name}
                                         </Typography>
@@ -158,7 +158,7 @@ let BrowseItemsComponent = (props: IBrowseProps) => {
     return (
         
         <>
-        <div style={{marginTop:5, marginLeft:10}}>
+
             <Grid container spacing={2} justify="space-around">
                 <Grid item xs={3}>
                         <List>
@@ -208,7 +208,7 @@ let BrowseItemsComponent = (props: IBrowseProps) => {
                     </div>
                 </Grid>
             </Grid>
-        </div>
+
         </>
     )
 }

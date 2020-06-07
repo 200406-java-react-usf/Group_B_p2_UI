@@ -15,20 +15,21 @@ export const cartActionTypes = {
 
 export const cartAction = (items: Inventory[], user: User) => async (dispatch: Dispatch) =>{
 	try {
-        
+
         let totalCost: number = 0;
         let itemIds: number[] = [];
 
         items.forEach(item => itemIds.push(item.item_id))
         items.forEach(item => totalCost = totalCost + item.cost)
 
-        let completedInvoice = await newInvoice(user.user_id, totalCost, itemIds)
+		let completedInvoice = await newInvoice(user.user_id, totalCost, itemIds)
+
 		dispatch({
             
 			type: cartActionTypes.SUCCESSFUL_INVOICE_CREATED,
 			payload: completedInvoice
 		});
-
+		console.log("successful purchase")
 		dispatch({
 			type: addItemsActionTypes.SUCCESSFUL_ADD_ITEM,
 			payload: []

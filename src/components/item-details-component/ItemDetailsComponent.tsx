@@ -71,6 +71,7 @@ let ItemDetailsComponent = (props: IItemDetailsProps) =>{
         {!props.thisItem?
         <Redirect to="/browse"/>
         : <></>}
+
 		<div style={{padding:"2%"}}>
             <Breadcrumbs aria-label="breadcrumb">
                 <Link color="inherit" to="/browse">
@@ -86,13 +87,13 @@ let ItemDetailsComponent = (props: IItemDetailsProps) =>{
                 <Grid item xs={6}>
                     <List>
                         <ListItem>
-                            <Typography gutterBottom variant="h5" component="h2" color="primary">
+                            <Typography gutterBottom variant="h5" component="h2" color='textPrimary'>
                                             {props.thisItem.item_name}
                             </Typography>
                         </ListItem>
                         <Divider />
                         <ListItem>
-                            <Typography>Price: </Typography>
+                            <Typography color='textPrimary'>Price: </Typography>
                             <span> </span>
                             <Typography variant="h6" color="secondary">
                                 {" $" + props.thisItem.cost.toFixed(2)}
@@ -106,7 +107,7 @@ let ItemDetailsComponent = (props: IItemDetailsProps) =>{
                         <ListItem>
                             <Typography >Description: </Typography>
                             <span> </span>
-                            <Typography color="primary">{props.thisItem.details}</Typography>
+                            <Typography color="textPrimary">{props.thisItem.details}</Typography>
                         </ListItem>
                         <ListItem>
                         <div style={{paddingRight:100}}>

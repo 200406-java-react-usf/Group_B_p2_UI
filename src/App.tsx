@@ -2,7 +2,7 @@ import React from 'react';
 
 import './App.css';
 import { Provider } from 'react-redux';
-import { AppBar, Toolbar, Typography } from '@material-ui/core';
+import { AppBar, Toolbar, Typography, createMuiTheme, MuiThemeProvider } from '@material-ui/core';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { store } from './Store';
 
@@ -22,13 +22,17 @@ import InvoicesComponent from './components/invoices-component/InvoicesContainer
 const theme = createMuiTheme({
 
   palette: {
-       primary: '#00bcd4',
-       secondary: '#ff4081'
+      
+      primary: {
+          main: '#4e5157'},
+      secondary: {
+          main: '#c75504'}
      }
    });
    
 function App() {
   return (
+    <MuiThemeProvider theme={theme}>
     <div className="App">
       <Provider store ={store}>
         
@@ -56,6 +60,7 @@ function App() {
         </Router>
       </Provider>
     </div>
+    </MuiThemeProvider>
   );
 }
 

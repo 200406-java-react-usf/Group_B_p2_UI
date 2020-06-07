@@ -11,7 +11,8 @@ import {
     Input, 
     Button, 
     makeStyles, 
-    Divider
+    Divider,
+    Paper
 } from '@material-ui/core';
 
 import { Redirect } from 'react-router';
@@ -105,7 +106,8 @@ function LoginComponent(props: ILoginProps) {
         props.authUser ?
         <Redirect to="/home" /> :
         <>
-            <div className={classes.loginContainer}>
+
+            <Paper className={classes.loginContainer}>
                 <form className={classes.loginForm}>
                     <Typography align="center" variant="h4">Login to Meme Store!</Typography>
 
@@ -147,7 +149,8 @@ function LoginComponent(props: ILoginProps) {
                         <></>
                     }
                 </form>
-            </div>
+            </Paper>
+
         </> 
     );
     

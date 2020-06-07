@@ -156,7 +156,7 @@ let CartComponent = (props: ICartProps) =>{
 	return (
         <>
         <div style={{margin:"2%"}}>
-        <Paper square={true}>
+        <Paper square={true} style={{borderColor:"white", borderWidth:4}}>
             <Grid container>
                 <Grid item xs={3}>
                 </Grid>
@@ -191,7 +191,7 @@ let CartComponent = (props: ICartProps) =>{
                 <Grid item xs ={10}>
                 </Grid>
                 <Grid item xs ={2}>
-                    <Button style={{marginTop:"5%", marginBottom:"5%"}} onClick={purchaseItems} color="primary" variant="contained">Purchase items</Button>
+                    <Button style={{marginTop:"5%", marginBottom:"5%"}} onClick={purchaseItems} color="secondary" variant="contained">Purchase items</Button>
                 </Grid>
             </Grid>
         </div>
