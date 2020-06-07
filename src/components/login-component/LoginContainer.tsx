@@ -2,7 +2,7 @@ import { IState } from "../../reducers";
 import { connect } from "react-redux";
 import LoginComponent from "./LoginComponent";
 import { loginAction } from "../../actions/login-actions";
-
+import { googleLoginAction } from "../../actions/google-login-acton";
 
 const mapStateToProps = (state: IState) => {
     return {
@@ -12,7 +12,8 @@ const mapStateToProps = (state: IState) => {
 }
 
 const mapDispatchToProps = {
-    loginAction
+    loginAction,
+    googleLoginAction
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginComponent);
