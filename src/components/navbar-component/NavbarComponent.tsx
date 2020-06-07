@@ -57,17 +57,13 @@ function NavbarComponent (props: INavbarProps) {
                         </Link>
                     </Typography>
                     {
-                        !  props.authUser ?
+                        !props.authUser ?
                         <>
-                            
-                            
                             <ListItemText inset>
                                 <Typography color="inherit" variant="h6">
                                     <Link to="/browse" className={classes.link}>Browse Memes</Link>
                                 </Typography>
                             </ListItemText>
-                        
-                            
                             <ListItemText inset>
                                 <Typography color="inherit" variant="h6" style={{marginLeft:0, marginRight:0}}>
                                     <Link to="/register" className={classes.link}>Register</Link>
@@ -80,10 +76,9 @@ function NavbarComponent (props: INavbarProps) {
                                 </Typography>
                             </ListItemText>
                            
-                            
-                            </> 
+                        </> 
                         :
-                        props.authUser.role_name ==='admin' ?
+                        props.authUser.role ==='MANAGER' ?
                         <>
                             <ListItemText inset>
                                 <Typography color="inherit" variant="h6">

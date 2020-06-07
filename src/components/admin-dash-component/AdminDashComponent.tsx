@@ -79,10 +79,10 @@ const ReimbComponent = (props: IAdminDashProps) => {
                     <Typography>Admin Dashboard</Typography>
                 </Grid>
                 <Grid item xs={6}>
-                    <Button><Link to='additem'>Add New Item</Link></Button>
+                    <Button component={Link} to='/additem' variant="contained" color="secondary">Add New Item</Button>
                 </Grid>
                 <Grid item xs={6}>
-                    <Button><Link to='invoices'>View All Invoices</Link></Button>
+                    <Button component={Link} to='/invoices' variant="contained" color="secondary">View all invoices</Button>
                 </Grid>
             </Grid>
         </div>
