@@ -28,7 +28,7 @@ const useStyles = makeStyles({
     }
 });
 
-function NavbarComponent (props: INavbarProps) {
+const NavbarComponent = (props: INavbarProps) => {
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
@@ -48,6 +48,8 @@ function NavbarComponent (props: INavbarProps) {
    
     return(
         <>
+            {props.authUser ? console.log(props.authUser) : <></> }
+            
             <List component="nav">
                 <ListItem component="div">
                     <Typography color="inherit" variant="h5">
@@ -66,7 +68,7 @@ function NavbarComponent (props: INavbarProps) {
                                 </Typography>
                             </ListItemText>
                             
-                             <ListItemText inset>
+                              {/*<ListItemText inset>
                                 <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
                                     Admin Control Panel
                                 </Button>
@@ -81,15 +83,15 @@ function NavbarComponent (props: INavbarProps) {
                                             <MenuItem onClick={handleClose}><Link to="/invoices">View Invoices</Link></MenuItem>
                                             <MenuItem onClick={handleClose}><Link to="/addItem">Add Item</Link></MenuItem>
                                 </Menu>      
-                            </ListItemText >
-                            <ListItemText inset>
+                            </ListItemText > */}
+                            {/* <ListItemText inset>
                                     <Link to="/cart" className={classes.logout} onClick={userLogout}>
                                     <Badge color ="secondary" badgeContent={props.cart.length}>
                                          <ShoppingCartIcon /> 
                                     </Badge>
                                     </Link>
                                  
-                            </ListItemText>
+                            </ListItemText> */}
                             <ListItemText inset>
                                 <Typography color="inherit" variant="h6" style={{marginLeft:0, marginRight:0}}>
                                     <Link to="/register" className={classes.link}>Register</Link>
@@ -101,15 +103,15 @@ function NavbarComponent (props: INavbarProps) {
                                     <Link to="/login" className={classes.link}>Login</Link>
                                 </Typography>
                             </ListItemText>
-                            <ListItemText inset>
+                            {/* <ListItemText inset>
                                 <Typography color="secondary" variant="h6">
                                     <Link to="/login" className={classes.logout} onClick={userLogout}>Logout</Link>
                                 </Typography>
-                            </ListItemText> 
+                            </ListItemText>  */}
                             
                             </> 
                         :
-                        props.authUser.role_name ==='admin' ?
+                        (props.authUser.role ==='MANAGER') ?
                         <>
                             <ListItemText inset>
                                 <Typography color="inherit" variant="h6">
@@ -148,7 +150,7 @@ function NavbarComponent (props: INavbarProps) {
                             </ListItemText>
                             <ListItemText inset>
                                 <Badge color ="secondary" badgeContent={props.cart.length}>
-                                    <Link to="/cart" className={classes.logout} onClick={userLogout}>
+                                    <Link to="/cart" >
                                          <ShoppingCartIcon /> 
                                     </Link>
                                  </Badge>
