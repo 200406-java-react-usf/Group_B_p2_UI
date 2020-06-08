@@ -7,7 +7,7 @@ import { Inventory } from '../../models/Inventory';
 import { GoogleLogout } from 'react-google-login';
 
 //Navbar Properties passed from container
-interface INavbarProps {
+export interface INavbarProps {
     authUser: User;
     errorMessage: string;
     cart: Inventory[];

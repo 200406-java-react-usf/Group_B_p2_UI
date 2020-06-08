@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Jest from 'jest';
 import { shallow, mount, ReactWrapper } from 'enzyme';
 import fetchMock from 'fetch-mock'
 import InvoicesComponent, { IInvoiceProps } from './InvoicesComponent';
@@ -65,20 +66,11 @@ describe('<InvoicesComponent />', () => {
         });
 
         it('Renders 0 ListItem elements if no data', () => {
-            expect(wrapper.find(ListItem)).toHaveLength(1);
+            expect(wrapper.find(ListItem)).toHaveLength(0);
         });
 
         
-        // it('Renders 0 ListItem elements if no data', () => {
-        //     const data=[
-        //         { invoice_id: 1, username: 'Test User', total_cost: 2.45, date_ordered: 'October 8, 2019'}
-        //     ];
-        //     expect(wrapper.find(ListItem)).toHaveLength(1);
-        // });
-        // it('should call getTableData', () => {
-
-        //     fetchMock.getAllInvoices()
-        // })
+        
     });
 
 })
