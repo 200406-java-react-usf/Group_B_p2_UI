@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import MaterialTable from 'material-table';
 import { User } from '../../models/User';
-import { makeStyles, Select, MenuItem, Grid, Typography, Button, TableContainer, TableHead, TableRow, TableCell, Table, TableBody, ListItem, ListItemText } from '@material-ui/core';
+import { makeStyles, TableContainer, TableHead, TableRow, TableCell, Table, TableBody, ListItem } from '@material-ui/core';
 import { Invoice } from '../../models/Invoice';
 import { getAllInvoices } from '../../remote/invoices-service';
 import { Redirect } from 'react-router';
 
 
 
-export interface IInvoicesState {
+export interface IInvoiceProps {
     authUser: User;
 }
 
@@ -22,7 +22,7 @@ const useStyles = makeStyles({
     }
 });
 
-const InvoicesComponent = (props: IInvoicesState) => {
+const InvoicesComponent = (props: IInvoiceProps) => {
 
     const classes = useStyles();
     const [invoices, setTableData] = useState([new Invoice(0,'',0 ,new Date, [])]);
@@ -94,28 +94,6 @@ const InvoicesComponent = (props: IInvoicesState) => {
                               </TableBody>
                           </Table>
                       </TableContainer>
-                         {/* <Grid container>
-                            <Grid item xs={12}>
-                                <Grid xs={6}>
-                                    <Typography>Invoice No.</Typography>
-                                </Grid>
-                                <Grid xs={6}>
-                                   <Typography>{rowData.invoice_id}</Typography> 
-                                </Grid>
-                            </Grid>
-                            <Grid item xs={12}>
-                                <Typography>User</Typography>
-                                <Typography>{rowData.username}</Typography> 
-                            </Grid>
-                            <Grid item xs={12}>
-                                <Typography>Total</Typography>
-                                <Typography>{rowData.total_cost}</Typography>
-                            </Grid>
-                            <Grid item xs={12}>
-                                <Typography>Date ordered</Typography>
-                                <Typography>{rowData.date_ordered}</Typography>
-                            </Grid>
-                        </Grid>  */}
                   </div>
                 )
               }}

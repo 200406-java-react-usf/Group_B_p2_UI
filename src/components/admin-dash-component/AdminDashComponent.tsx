@@ -71,7 +71,7 @@ const ReimbComponent = (props: IAdminDashProps) => {
     }, []);
 
   return (
-   // !(props.authUser.role_name =='admin')  ? <Redirect to='/home' />:   
+   //!(props.authUser.role_name =='MANAGER')  ? <Redirect to='/home' /> :    
     <>
         <div>
             <Grid container spacing={3} style={{paddingTop:"3%"}}>
