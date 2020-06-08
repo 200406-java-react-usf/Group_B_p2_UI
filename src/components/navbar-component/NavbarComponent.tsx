@@ -34,7 +34,7 @@ function NavbarComponent (props: INavbarProps) {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-      setAnchorEl(event.currentTarget);
+        setAnchorEl(event.currentTarget);
     };
 
     let userLogout = async () => {
@@ -43,11 +43,11 @@ function NavbarComponent (props: INavbarProps) {
         localStorage.clear();
 
     }
-  
+
     const handleClose = () => {
-      setAnchorEl(null);
+        setAnchorEl(null);
     };
-   
+
     return(
         <>
             <List component="nav">
@@ -76,7 +76,7 @@ function NavbarComponent (props: INavbarProps) {
                                     <Link to="/login" className={classes.link}>Login</Link>
                                 </Typography>
                             </ListItemText>
-                           
+                        
                         </> 
                         :
                         props.authUser.role ==='MANAGER' ?
